@@ -12,11 +12,11 @@ export default function Navbar() {
 
 
 
-  <nav className='bg-gray-100  fixed top-0 left-0 right-0 z-50'>
-    <div className="container items-center flex justify-between mx-auto py-4">
-    <div className='flex flex-col xl:flex-row text-center '>
+  <nav className='bg-gray-100 text-center  xl:fixed top-0 left-0 right-0 z-50'>
+    <div className="container items-center flex flex-col lg:flex-row justify-between mx-auto py-4">
+      <div className='flex flex-col lg:flex-row text-center '>
         <img src={logo} width={120} alt="fresh cart logo " />
-        <ul className='flex flex-col xl:flex-row justify-around m-0 pl-10'>
+        <ul className='flex flex-col lg:flex-row justify-around m-0 '>
           <li className='text-md mx-4 text-slate-900 font-normal '><NavLink to={'/'}> Home </NavLink></li>
           <li className='text-md mx-4 text-slate-900 font-normal '><NavLink to={'/about'}> About </NavLink></li>
           <li className='text-md mx-4 text-slate-900 font-normal '><NavLink to={'/cart'}> Cart </NavLink></li>
@@ -26,11 +26,11 @@ export default function Navbar() {
         </ul>
       </div>
 
-      <ul className='flex flex-col xl:flex-row justify-around m-0 pl-10'>
+      <ul className='flex flex-col lg:flex-row justify-around m-0 '>
           <li className='text-md mx-4 text-slate-900 font-normal '><NavLink to={'/login'}> Login </NavLink></li>
           <li className='text-md mx-4 text-slate-900 font-normal '><NavLink to={'/register'}> Register </NavLink></li>
           <li className='text-md mx-4 text-slate-900 font-normal '><NavLink to={'/'}> Logout </NavLink></li>
-          <li className='text-md mx-4 text-slate-900 font-normal  items-center flex justify-between '>
+          <li className='text-md mx-4 text-slate-900 font-normal mt-2 lg:mt-0  items-center flex justify-between '>
             <i className='fab fa-facebook mx-2 fa-sm'></i>
             <i className='fab fa-twitter mx-2 fa-sm'></i>
             <i className='fab fa-instagram mx-2 fa-sm'></i>
