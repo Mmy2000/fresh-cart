@@ -8,8 +8,13 @@ import { Navigate, useNavigate } from 'react-router-dom';
 
 
 export default function Register() {
+  let navigate = useNavigate();
 
-  function handleRegister(formValues) {
+  async function handleRegister(formValues) {
+    let {data} = await axios.post(`https://ecommerce.routemisr.com/api/v1/auth/signup` , formValues)
+    if (data.message === "success") {
+      navigate('/')
+    }
     console.log(formValues);
   }
 
@@ -23,6 +28,8 @@ export default function Register() {
     },
     onSubmit:handleRegister
   })
+
+
 
   
   return <>
