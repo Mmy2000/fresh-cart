@@ -26,20 +26,28 @@ export default function Register() {
   //   return errors;
     
   // }
-
+  const [apiError, setapiError] = useState('');
   async function handleRegister(formValues) {
-    let {data} = await axios.post(`https://ecommerce.routemisr.com/api/v1/auth/signup` , formValues)
-    console.log(data);
-    if (data.message === "success") {
+    // let {data} = await axios.post(`https://ecommerce.routemisr.com/api/v1/auth/signup` , formValues)
+    // console.log(data);
+    // if (data.message === "success") {
 
-      navigate('/')
-    }
+    //   navigate('/')
+    // }
+    // console.log(formValues);
+    axios.post(`https://ecommerce.routemisr.com/api/v1/auth/signup` , formValues)
+    .then( (x)=>{
+      console.log(x);
+    })
+    .catch( (apiResponse)=>{
+      setapiError(apiResponse?.response?.data?.message)
+    })
     console.log(formValues);
   }
   let yupValidation = Yup.object().shape({
     name : Yup.string().min(3,'too short').max(10 , 'too long').required('Name is required'),
     email : Yup.string().email('Email is invalid').required('Email is required'),
-    phone : Yup.string().matches('/^01[0125][0-9]{8}$/' , 'Phone is invalid').required('Phone is required'),
+    phone : Yup.string().matches(/^01[0125][0-9]{8}$/ , 'Phone is invalid').required('Phone is required'),
     password : Yup.string().matches(/^[A-Z][a-z0-9]{5,10}$/ , 'Password must start with uppercase ..').required('Password is required'),
     rePassword : Yup.string().oneOf([Yup.ref('password')] , "dont't match").required('Repassword is required'),
   })
@@ -61,7 +69,11 @@ export default function Register() {
 
   
   return <>
+  
   <div className="py-8 max-w-xl mx-auto">
+    {apiError?<div className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+  {apiError}
+</div>:null}
     <h2 className='text-3xl mb-6 font-bold text-center text-green-600'>Regitser now</h2>
     <form onSubmit={formik.handleSubmit} >
   <div className="relative z-0 w-full mb-5 group">
