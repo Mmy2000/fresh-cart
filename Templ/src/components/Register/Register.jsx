@@ -40,6 +40,7 @@ export default function Register() {
     axios.post(`https://ecommerce.routemisr.com/api/v1/auth/signup` , formValues)
     .then( (x)=>{
       setisLoading(false)
+      navigate('/')
       console.log(x);
     })
     .catch( (apiResponse)=>{
