@@ -27,6 +27,7 @@ export default function Register() {
     
   // }
   const [apiError, setapiError] = useState('');
+  const [isLoading, setisLoading] = useState(false);
   async function handleRegister(formValues) {
     // let {data} = await axios.post(`https://ecommerce.routemisr.com/api/v1/auth/signup` , formValues)
     // console.log(data);
@@ -35,12 +36,15 @@ export default function Register() {
     //   navigate('/')
     // }
     // console.log(formValues);
+    setisLoading(true)
     axios.post(`https://ecommerce.routemisr.com/api/v1/auth/signup` , formValues)
     .then( (x)=>{
+      setisLoading(false)
       console.log(x);
     })
     .catch( (apiResponse)=>{
       setapiError(apiResponse?.response?.data?.message)
+      setisLoading(false)
     })
     console.log(formValues);
   }
@@ -113,7 +117,10 @@ export default function Register() {
   {formik.errors.rePassword && formik.touched.rePassword?<div class="p-4 mb-2 text-sm text-red-800 rounded-lg bg-red-50 font-medium dark:bg-gray-800 dark:text-red-400" role="alert">
   {formik.errors.rePassword}
 </div>:null}
-    <button type="submit" className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Submit</button>
+    <button  type="submit" className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+      {isLoading?<i className='fas fa-spinner fa-spin me-2'></i>:'Submit'}
+      
+      </button>
 
   </form>
   </div>
