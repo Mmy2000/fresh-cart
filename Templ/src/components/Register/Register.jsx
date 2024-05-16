@@ -10,9 +10,28 @@ import { Navigate, useNavigate } from 'react-router-dom';
 export default function Register() {
   let navigate = useNavigate();
 
+
+  function myValidation(value) {
+    let errors = {};
+    if (!value.name) {
+      errors.name = "Name is required"
+    }else if(!/^[A-Z][a-z]{3,5}$/.test(value.name)){
+      errors.name = "Name must start with uppercase then .."
+    }
+    if (!value.email) {
+      errors.email = "Email is required"
+    }else if(!/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value.email)){
+      errors.email = "Email is invalid"
+    }
+    return errors;
+    
+  }
+
   async function handleRegister(formValues) {
     let {data} = await axios.post(`https://ecommerce.routemisr.com/api/v1/auth/signup` , formValues)
+    console.log(data);
     if (data.message === "success") {
+
       navigate('/')
     }
     console.log(formValues);
@@ -26,6 +45,7 @@ export default function Register() {
       password:'',
       rePassword:''
     },
+    validate:myValidation,
     onSubmit:handleRegister
   })
 
@@ -40,10 +60,18 @@ export default function Register() {
       <input type="text" onBlur={formik.handleBlur} onChange={formik.handleChange} value={formik.values.name} name="name" id="name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" "  />
       <label htmlFor="name" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Enter Your Name :</label>
   </div>
+  {formik.errors.name?<div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 font-medium dark:bg-gray-800 dark:text-red-400" role="alert">
+  {formik.errors.name}
+</div>:null}
+  
+  
   <div className="relative z-0 w-full mb-5 group">
       <input type="email" onBlur={formik.handleBlur} onChange={formik.handleChange} value={formik.values.email} name="email" id="email" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" "  />
       <label htmlFor="email" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Enter Your Email address :</label>
   </div>
+  {formik.errors.email?<div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 font-medium dark:bg-gray-800 dark:text-red-400" role="alert">
+  {formik.errors.email}
+</div>:null}
   <div className="relative z-0 w-full mb-5 group">
       <input type="phone" onBlur={formik.handleBlur} onChange={formik.handleChange} value={formik.values.phone} name="phone" id="phone" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" "  />
       <label htmlFor="phone" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Enter Your Phone number :</label>
