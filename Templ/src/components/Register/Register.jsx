@@ -26,7 +26,7 @@ export default function Register() {
 
   
   return <>
-  <div className="py-6 max-w-xl mx-auto">
+  <div className="py-8 max-w-xl mx-auto">
     <h2 className='text-3xl mb-6 font-bold text-center text-green-600'>Regitser now</h2>
     <form onSubmit={formik.handleSubmit} >
   <div className="relative z-0 w-full mb-5 group">
