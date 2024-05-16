@@ -12,11 +12,13 @@ import Categories from './components/Categories/Categories';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import Notfound from './components/Notfound/Notfound';
+import About from './components/About/About';
 
 let router = createBrowserRouter([
   {path:'' , element:<Layout/> , children:[
     {index:true , element:<Home/>},
     {path:'products' , element:<Products/>},
+    {path:'about' , element:<About/>},
     {path:'cart' , element:<Cart/>},
     {path:'brands' , element:<Brands/>},
     {path:'categories' , element:<Categories/>},

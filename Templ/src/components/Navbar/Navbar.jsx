@@ -9,6 +9,9 @@ export default function Navbar() {
 
     } , []);
   return <>
+
+
+
   <nav className='bg-gray-100  fixed top-0 left-0 right-0 z-50'>
     <div className="container items-center flex justify-between mx-auto py-4">
     <div className='flex flex-col xl:flex-row text-center '>
