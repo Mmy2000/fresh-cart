@@ -12,7 +12,7 @@ export default function Navbar() {
 
 
 
-  <nav className='bg-gray-100 text-center  xl:fixed top-0 left-0 right-0 z-50'>
+  <nav className='bg-gray-100 text-center px-10  xl:fixed top-0 left-0 right-0 z-50'>
     <div className="container items-center flex flex-col lg:flex-row justify-between mx-auto py-4">
       <div className='flex flex-col lg:flex-row text-center '>
         <img src={logo} width={120} alt="fresh cart logo " />
