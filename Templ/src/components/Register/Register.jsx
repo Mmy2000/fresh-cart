@@ -3,7 +3,7 @@ import Style from './Register.module.css';
 import { useFormik } from 'formik';
 import axios from 'axios';
 import * as Yup from 'yup'
-import { Navigate, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 
 
 
@@ -11,21 +11,21 @@ export default function Register() {
   let navigate = useNavigate();
 
 
-  function myValidation(value) {
-    let errors = {};
-    if (!value.name) {
-      errors.name = "Name is required"
-    }else if(!/^[A-Z][a-z]{3,5}$/.test(value.name)){
-      errors.name = "Name must start with uppercase then .."
-    }
-    if (!value.email) {
-      errors.email = "Email is required"
-    }else if(!/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value.email)){
-      errors.email = "Email is invalid"
-    }
-    return errors;
+  // function myValidation(value) {
+  //   let errors = {};
+  //   if (!value.name) {
+  //     errors.name = "Name is required"
+  //   }else if(!/^[A-Z][a-z]{3,5}$/.test(value.name)){
+  //     errors.name = "Name must start with uppercase then .."
+  //   }
+  //   if (!value.email) {
+  //     errors.email = "Email is required"
+  //   }else if(!/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value.email)){
+  //     errors.email = "Email is invalid"
+  //   }
+  //   return errors;
     
-  }
+  // }
 
   async function handleRegister(formValues) {
     let {data} = await axios.post(`https://ecommerce.routemisr.com/api/v1/auth/signup` , formValues)
@@ -36,6 +36,12 @@ export default function Register() {
     }
     console.log(formValues);
   }
+  let yupValidation = Yup.object().shape({
+    name : Yup.string().min(3,'too short').max(10 , 'too long').required('Name is required'),
+    email : Yup.string().email('Email is invalid').required('Email is required'),
+    phone : Yup.string().matches('/^01[0125][0-9]{8}$/' , 'Phone is invalid').required('Phone is required'),
+    password : Yup.string().matches('/^$/' , 'Phone is invalid').required('Password is required'),
+  })
 
   let formik = useFormik({
     initialValues:{
@@ -45,7 +51,7 @@ export default function Register() {
       password:'',
       rePassword:''
     },
-    validate:myValidation,
+    // validate:myValidation,
     onSubmit:handleRegister
   })
 
