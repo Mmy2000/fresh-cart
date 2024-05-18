@@ -52,7 +52,7 @@ export default function Login() {
   {apiError}
 </div>:null}
     <h2 className='text-3xl mb-6 font-bold text-center text-green-600'>Login now</h2>
-    <form onSubmit={formik.handleSubmit} >
+    <form onSubmit={formik.handleSubmit}  >
   
   
   
@@ -76,7 +76,7 @@ export default function Login() {
       {isLoading?<i className='fas fa-spinner fa-spin me-2'></i>:'Login'}
       
       </button>
-      <p className='pl-4'>didn't have account yet ? <span className='font-semibold'><Link to={'/register'}>Register now</Link></span> </p>
+      <p className='pl-4'>didn't have account yet ? <span className='font-semibold'><Link className='text-green-800 hover:text-green-700' to={'/register'}>Register now</Link></span> </p>
     </div>
     
 
