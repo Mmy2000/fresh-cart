@@ -39,9 +39,13 @@ export default function Register() {
     setisLoading(true)
     axios.post(`https://ecommerce.routemisr.com/api/v1/auth/signup` , formValues)
     .then( (x)=>{
-      setisLoading(false)
+      if (x?.data?.message === 'success') {
+        localStorage.setItem('userTaken' , x.data.token)
+        setisLoading(false)
       navigate('/')
       console.log(x);
+      }
+      
     })
     .catch( (apiResponse)=>{
       setapiError(apiResponse?.response?.data?.message)

@@ -17,10 +17,13 @@ export default function Login() {
   
     setisLoading(true)
     axios.post(`https://ecommerce.routemisr.com/api/v1/auth/signin` , formValues)
-    .then( (x)=>{
-      setisLoading(false)
+    .then( (apiResponse)=>{
+      if (apiResponse?.data?.message === 'success') {
+        localStorage.setItem('userTaken' , apiResponse.data.token)
+        setisLoading(false)
       navigate('/')
-      console.log(x);
+      console.log(apiResponse);
+      }
     })
     .catch( (apiResponse)=>{
       setapiError(apiResponse?.response?.data?.message)

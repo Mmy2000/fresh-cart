@@ -13,6 +13,8 @@ import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import Notfound from './components/Notfound/Notfound';
 import About from './components/About/About';
+import UserContextProvider from './Context/UserContext';
+
 
 let router = createBrowserRouter([
   {path:'' , element:<Layout/> , children:[
@@ -29,8 +31,11 @@ let router = createBrowserRouter([
 ])
 function App() {
   const [count, setCount] = useState(0)
+  
 
-  return <RouterProvider router={router}></RouterProvider>
-}
+  return <UserContextProvider>
+    <RouterProvider router={router}></RouterProvider>
+  </UserContextProvider>
+ }
 
 export default App
