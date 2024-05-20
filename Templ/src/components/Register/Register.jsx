@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Style from './Register.module.css';
 import { useFormik } from 'formik';
 import axios from 'axios';
 import * as Yup from 'yup'
 import {  Link, useNavigate } from 'react-router-dom';
+import { UserContext } from '../../Context/UserContext';
 
 
 
 export default function Register() {
   let navigate = useNavigate();
+  let {setUserLogin} = useContext(UserContext)
 
 
   // function myValidation(value) {
@@ -38,12 +40,13 @@ export default function Register() {
     // console.log(formValues);
     setisLoading(true)
     axios.post(`https://ecommerce.routemisr.com/api/v1/auth/signup` , formValues)
-    .then( (x)=>{
-      if (x?.data?.message === 'success') {
-        localStorage.setItem('userTaken' , x.data.token)
+    .then( (apiResponse)=>{
+      if (apiResponse?.data?.message === 'success') {
+        localStorage.setItem('userTaken' , apiResponse.data.token)
+        setUserLogin(apiResponse.data.token)
         setisLoading(false)
       navigate('/')
-      console.log(x);
+      console.log(apiResponse);
       }
       
     })

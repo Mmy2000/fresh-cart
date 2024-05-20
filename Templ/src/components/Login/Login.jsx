@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Style from './Login.module.css';
 import { useFormik } from 'formik';
 import axios from 'axios';
 import * as Yup from 'yup'
 import {  Link, useNavigate } from 'react-router-dom';
+import { UserContext } from '../../Context/UserContext';
 
 
 
 export default function Login() {
   let navigate = useNavigate();
+  let {setUserLogin} = useContext(UserContext)
 
 
   const [apiError, setapiError] = useState('');
@@ -20,6 +22,7 @@ export default function Login() {
     .then( (apiResponse)=>{
       if (apiResponse?.data?.message === 'success') {
         localStorage.setItem('userTaken' , apiResponse.data.token)
+        setUserLogin(apiResponse.data.token)
         setisLoading(false)
       navigate('/')
       console.log(apiResponse);
