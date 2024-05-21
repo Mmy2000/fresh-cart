@@ -1,13 +1,21 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Style from './Navbar.module.css';
 import logo from '../../assets/images/logo.svg'
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../Context/UserContext';
 
 
 export default function Navbar() {
     const [counter, setCounter] = useState(0);
-    let {userLogin} = useContext(UserContext)
+    let navigate = useNavigate()
+    let {userLogin , setUserLogin} = useContext(UserContext)
+
+    function LogOut() {
+      localStorage.removeItem('userTaken')
+      setUserLogin(null)
+      navigate('/login')
+    }
+
     useEffect(()=>{
 
     } , []);
@@ -38,7 +46,7 @@ export default function Navbar() {
           userLogin == null?<>
             <li className='text-md mx-2 py-1 text-slate-900 font-normal '><NavLink to={'/login'}> Login </NavLink></li>
           <li className='text-md mx-2 py-1 text-slate-900 font-normal '><NavLink to={'/register'}> Register </NavLink></li>
-          </>:<li className='text-md mx-2 py-1 text-slate-900 font-normal '><NavLink to={'/'}> Logout </NavLink></li>}
+          </>:<li onClick={LogOut} className='text-md mx-2 py-1 text-slate-900 font-normal cursor-pointer '><span > Logout </span></li>}
           
           
           <li className='text-md mx-2 py-1 text-slate-900 font-normal mt-2 lg:mt-0  items-center flex justify-between '>
