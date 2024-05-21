@@ -61,3 +61,10 @@ a , a:hover{
 {
     background-color: var(--light-color) !important;
 }
+
+.row{
+    @apply flex flex-wrap py-8 items-center px-4
+}
+.btn{
+    @apply px-4 py-2 w-full rounded-lg text-white bg-green-600
+}
