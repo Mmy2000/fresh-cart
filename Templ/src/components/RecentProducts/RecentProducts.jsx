@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Style from './RecentProducts.module.css';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
 export default function RecentProducts() {
@@ -27,6 +28,7 @@ export default function RecentProducts() {
     {recentProducts.map( (product)=>
         <div key={product.id} className="w-1/6 py-4">
       <div className="product py-4 px-4">
+        <Link to={`/productdetails/${product.id}`}>
         <img className='w-full' src={product.imageCover} />
         <span className='block font-light text-green-600'>{product.category.name}</span>
         <h3 className='text-lg font-normal text-gray-900 mb-4'>{product.title.split(' ').slice(0,2).join(' ')}</h3>
@@ -36,6 +38,7 @@ export default function RecentProducts() {
 
         </div>
         <button className='btn'>add to cart</button>
+        </Link>
       </div>
     </div>
     )}
