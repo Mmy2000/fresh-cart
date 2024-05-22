@@ -2,10 +2,20 @@ import React, { useEffect, useState } from 'react';
 import Style from './ProductDetails.module.css';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
+import Slider from "react-slick";
 
 
 
 export default function ProductDetails() {
+  const settings = {
+    className: "slider variable-width",
+    dots: true,
+    infinite: true,
+    centerMode: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    variableWidth: true
+  };
   let {id , category} = useParams();
   const [productDetails, setProductDetails] = useState(null);
   const [relatedProducts, setRelatedProducts] = useState(null);
@@ -39,7 +49,10 @@ export default function ProductDetails() {
   return <>
     <div className="row">
       <div className='w-1/4'>
-        <img className='w-full' src={productDetails?.imageCover} alt={productDetails?.title} />
+        <Slider {...settings}>
+        {productDetails?.images.map((src)=> <img className='w-full' src={src} alt={productDetails?.title} />)}        
+        </Slider>
+        
       </div>
       <div className='w-3/4 p-6'>
         <h1 className='text-lg font-normal text-slate-900 '>{productDetails?.title}</h1>
