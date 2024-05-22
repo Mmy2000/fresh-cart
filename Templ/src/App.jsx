@@ -21,7 +21,7 @@ let router = createBrowserRouter([
   {path:'' , element:<Layout/> , children:[
     {index:true , element:<ProtectedRoute><Home/></ProtectedRoute> },
     {path:'products' , element:<ProtectedRoute><Products/></ProtectedRoute>},
-    {path:'productdetails/:id' , element:<ProtectedRoute><ProductDetails/></ProtectedRoute>},
+    {path:'productdetails/:id/:category' , element:<ProtectedRoute><ProductDetails/></ProtectedRoute>},
     {path:'about' , element:<ProtectedRoute><About/></ProtectedRoute>},
     {path:'cart' , element:<ProtectedRoute><Cart/></ProtectedRoute>},
     {path:'brands' , element:<ProtectedRoute><Brands/></ProtectedRoute>},

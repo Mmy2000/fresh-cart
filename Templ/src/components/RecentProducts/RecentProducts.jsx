@@ -28,7 +28,7 @@ export default function RecentProducts() {
     {recentProducts.map( (product)=>
         <div key={product.id} className="w-1/6 py-4">
       <div className="product py-4 px-4">
-        <Link to={`/productdetails/${product.id}`}>
+        <Link to={`/productdetails/${product.id}/${product.category.name}`}>
         <img className='w-full' src={product.imageCover} />
         <span className='block font-light text-green-600'>{product.category.name}</span>
         <h3 className='text-lg font-normal text-gray-900 mb-4'>{product.title.split(' ').slice(0,2).join(' ')}</h3>
