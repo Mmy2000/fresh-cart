@@ -8,13 +8,11 @@ import Slider from "react-slick";
 
 export default function ProductDetails() {
   const settings = {
-    className: "slider variable-width",
     dots: true,
     infinite: true,
     centerMode: true,
     slidesToShow: 1,
     slidesToScroll: 1,
-    variableWidth: true
   };
   let {id , category} = useParams();
   const [productDetails, setProductDetails] = useState(null);
@@ -23,6 +21,7 @@ export default function ProductDetails() {
     axios.get(`https://ecommerce.routemisr.com/api/v1/products/${id}`)
     .then( ({data})=>{
       setProductDetails(data.data)
+      console.log(data.data.images);
     })
     .catch( ()=>{
 
@@ -34,7 +33,6 @@ export default function ProductDetails() {
       let allProducts = data.data
       let related = allProducts.filter( (product)=> product.category.name == category)
       setRelatedProducts(related)
-      console.log(relatedProducts);
 
     })
     .catch( ()=>{
@@ -48,9 +46,10 @@ export default function ProductDetails() {
     } , [id,category]);
   return <>
     <div className="row">
-      <div className='w-1/4'>
+      <div className='w-1/4 bg-red-500'>
         <Slider {...settings}>
-        {productDetails?.images.map((src)=> <img className='w-full' src={src} alt={productDetails?.title} />)}        
+            {productDetails?.images.map((src)=> <img className='w-full bg-red-600' src={src} alt={productDetails?.title} />)} 
+               
         </Slider>
         
       </div>
