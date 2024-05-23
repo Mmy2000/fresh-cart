@@ -31,10 +31,11 @@ export default function CategoriesSlider() {
     } , []);
   return <>
     <div className='p-5 mx-5'>
+      <h2 className='py-4 text-gray-800 font-light text-xl'>Shop popular Categories</h2>
       <Slider {...settings}>
     {categories.map( (category)=> <div>
       <img className='category-image w-full'  src={category.image} alt="" />
-      <h3>{category.name}</h3>
+      <h3 className='font-light mt-2'>{category.name}</h3>
     </div>)}
     </Slider>
     </div>
