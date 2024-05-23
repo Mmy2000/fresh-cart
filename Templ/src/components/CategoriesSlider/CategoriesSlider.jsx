@@ -9,10 +9,10 @@ export default function CategoriesSlider() {
   const settings = {
     dots: false,
     infinite: true,
-    centerMode: true,
     slidesToShow: 8,
     slidesToScroll: 3,
-    autoplay:true
+    autoplay:true,
+    speed:1000,
   };
   const [categories, setCategories] = useState([]);
 
@@ -30,11 +30,13 @@ export default function CategoriesSlider() {
       getCategories()
     } , []);
   return <>
-  <Slider {...settings}>
+    <div className='p-5 mx-5'>
+      <Slider {...settings}>
     {categories.map( (category)=> <div>
       <img className='category-image w-full'  src={category.image} alt="" />
       <h3>{category.name}</h3>
     </div>)}
     </Slider>
+    </div>
   </>
 }

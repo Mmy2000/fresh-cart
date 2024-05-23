@@ -46,9 +46,9 @@ export default function ProductDetails() {
     } , [id,category]);
   return <>
     <div className="row">
-      <div className='w-1/4 bg-red-500'>
+      <div className='w-1/4'>
         <Slider {...settings}>
-            {productDetails?.images.map((src)=> <img className='w-full bg-red-600' src={src} alt={productDetails?.title} />)} 
+            {productDetails?.images.map((src)=> <img className='w-full ' src={src} alt={productDetails?.title} />)} 
                
         </Slider>
         
