@@ -16,6 +16,7 @@ export default function MainSlider() {
     slidesToScroll: 1,
     autoplay:true,
     speed:1000,
+    arrows:false,
   };
     const [counter, setCounter] = useState(0);
     useEffect(()=>{
