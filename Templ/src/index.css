@@ -68,3 +68,6 @@ a , a:hover{
 .btn{
     @apply px-4 py-2 w-full rounded-lg text-white bg-green-600
 }
+.category-image{
+    height: 200px;
+}
