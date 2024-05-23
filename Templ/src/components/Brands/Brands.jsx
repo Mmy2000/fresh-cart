@@ -25,10 +25,10 @@ export default function Brands() {
     <div className="row">
       {brands.map( (brand)=> 
       <div key={brand.id} className='w-1/6 py-4 '>
-        <div className="brand relative py-4 px-4">
+        <div className="brand relative  mx-4">
           <img className='w-full' src={brand.image} alt="" />
           <div className="cover ">
-            <h3 className='text-2xl font-extrabold pt-2'>{brand.name}</h3>
+            <h3 className='text-xl font-extrabold pt-2'>{brand.name}</h3>
           </div>
         </div>
       </div>)}
