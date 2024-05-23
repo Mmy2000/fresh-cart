@@ -10,9 +10,16 @@ export default function ProductDetails() {
   const settings = {
     dots: true,
     infinite: true,
-    centerMode: true,
     slidesToShow: 1,
     slidesToScroll: 1,
+  };
+  const settings2 = {
+    dots: true,
+    infinite: true,
+    slidesToShow: 6,
+    slidesToScroll: 1,
+    autoplay:true,
+    speed:1000,
   };
   let {id , category} = useParams();
   const [productDetails, setProductDetails] = useState(null);
@@ -45,7 +52,7 @@ export default function ProductDetails() {
       getRelatedProducts(category)
     } , [id,category]);
   return <>
-    <div className="row">
+    <div className="row px-5 mx-5">
       <div className='w-1/4'>
         <Slider {...settings}>
             {productDetails?.images.map((src)=> <img className='w-full ' src={src} alt={productDetails?.title} />)} 
@@ -65,7 +72,9 @@ export default function ProductDetails() {
       </div>
     </div>
 
-    <div className="row">
+    <div className="row px-5 mx-5">
+      <div className='w-full'>
+      <Slider {...settings2}>
       {relatedProducts?.map((product) => 
         <div key={product.id} className="w-1/6 py-4">
       <div className="product py-4 px-4">
@@ -83,6 +92,8 @@ export default function ProductDetails() {
       </div>
     </div>
       )}
+      </Slider>
+      </div>
     </div>
   </>
 }
