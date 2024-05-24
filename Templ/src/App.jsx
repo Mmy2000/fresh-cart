@@ -21,6 +21,7 @@ import {
   QueryClientProvider,
   useQuery,
 } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 let router = createBrowserRouter([
   {
@@ -97,6 +98,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <UserContextProvider>
         <RouterProvider router={router}></RouterProvider>
+        <ReactQueryDevtools></ReactQueryDevtools>
       </UserContextProvider>
     </QueryClientProvider>
   );
