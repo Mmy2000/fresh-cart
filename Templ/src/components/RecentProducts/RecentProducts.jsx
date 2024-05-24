@@ -2,48 +2,84 @@ import React, { useEffect, useState } from 'react';
 import Style from './RecentProducts.module.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import { RingLoader } from 'react-spinners';
 
 
 export default function RecentProducts() {
 
-  const [recentProducts, setRecentProducts] = useState([]);
-
-  function getProducts() {
-    axios.get(`https://ecommerce.routemisr.com/api/v1/products`)
-    .then( ({data})=>{
-      setRecentProducts(data.data)
-      console.log(recentProducts);
-    })
-    .catch( (error)=>{
-
-    })
+  function recent() {
+    return axios.get(`https://ecommerce.routemisr.com/api/v1/products`);
   }
-    const [counter, setCounter] = useState(0);
-    useEffect(()=>{
-      getProducts()
-    } , []);
-  return <>
-  <div className="row">
-
-    {recentProducts.map( (product)=>
-        <div key={product.id} className="w-1/6 py-4">
-      <div className="product py-4 px-4">
-        <Link to={`/productdetails/${product.id}/${product.category.name}`}>
-        <img className='w-full' src={product.imageCover} />
-        <span className='block font-light text-green-600'>{product.category.name}</span>
-        <h3 className='text-lg font-normal text-gray-900 mb-4'>{product.title.split(' ').slice(0,2).join(' ')}</h3>
-        <div className='flex items-center justify-between'>
-          <span>{product.price} EGP</span>
-          <span>{product.ratingsAverage} <i className='fas fa-star text-yellow-500'></i></span>
-
-        </div>
-        <button className='btn'>add to cart</button>
-        </Link>
+  let { isPending, isError,error, data , isLoading} = useQuery({
+    queryKey: ["recentProducts"],
+    queryFn: recent
+  });
+  
+  
+  
+  if (isLoading) {
+    return (
+      <div className="flex items-center w-full justify-center">
+        <RingLoader color="green" />
       </div>
-    </div>
-    )}
+    );
+  }
+  if (isError) {
+    return <>
+      <div className="flex items-center w-full justify-center">
+        <h3>{error}</h3>
+      </div>
+      </>
+  }
+  
+  
 
-  </div>
-    
-  </>
-}
+    // const [recentProducts, setRecentProducts] = useState([]);
+
+    // function getProducts() {
+    //   axios.get(`https://ecommerce.routemisr.com/api/v1/products`)
+    //   .then( ({data})=>{
+    //     setRecentProducts(data.data)
+    //     console.log(recentProducts);
+    //   })
+    //   .catch( (error)=>{
+
+    //   })
+    // }
+    //   const [counter, setCounter] = useState(0);
+    //   useEffect(()=>{
+    //     getProducts()
+    //   } , []);
+    return (
+      <>
+        <div className="row">
+          {data?.data.data.map((product) => (
+            <div key={product.id} className="w-1/6 py-4">
+              <div className="product py-4 px-4">
+                <Link
+                  to={`/productdetails/${product.id}/${product.category.name}`}
+                >
+                  <img className="w-full" src={product.imageCover} />
+                  <span className="block font-light text-green-600">
+                    {product.category.name}
+                  </span>
+                  <h3 className="text-lg font-normal text-gray-900 mb-4">
+                    {product.title.split(" ").slice(0, 2).join(" ")}
+                  </h3>
+                  <div className="flex items-center justify-between">
+                    <span>{product.price} EGP</span>
+                    <span>
+                      {product.ratingsAverage}{" "}
+                      <i className="fas fa-star text-yellow-500"></i>
+                    </span>
+                  </div>
+                  <button className="btn">add to cart</button>
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
+      </>
+    );
+  }

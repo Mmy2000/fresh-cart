@@ -73,6 +73,7 @@ export default function ProductDetails() {
     </div>
 
     <div className="row px-5 mx-5">
+      <h1 className='text-center text-lg w-full  font-semibold '>Related Products</h1>
       <div className='w-full'>
       <Slider {...settings2}>
       {relatedProducts?.map((product) => 
