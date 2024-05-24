@@ -13,7 +13,11 @@ export default function RecentProducts() {
   }
   let { isPending, isError,error, data , isLoading} = useQuery({
     queryKey: ["recentProducts"],
-    queryFn: recent
+    queryFn: recent,
+    refetchInterval:3000,
+    refetchIntervalInBackground:true
+    // staleTime:5000,
+    // retry:10
   });
   
   
