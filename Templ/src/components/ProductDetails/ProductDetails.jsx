@@ -72,7 +72,7 @@ export default function ProductDetails() {
       getRelatedProducts(category)
     } , [id,category]);
   return <>
-    <div className="row px-5 mx-5">
+    {productDetails?<div className="row px-5 mx-5">
       <div className='w-1/4'>
         <Slider {...settings}>
             {productDetails?.images.map((src)=> <img key={id} className='w-full ' src={src} alt={productDetails?.title} />)} 
@@ -90,7 +90,9 @@ export default function ProductDetails() {
         </div>
         <button className='btn'>add to cart</button>
       </div>
-    </div>
+    </div>:<div className="flex items-center w-full justify-center">
+        <RingLoader color="green" />
+      </div>}
 
     <div className="row px-5 mx-5">
       <h1 className='text-center text-lg w-full  font-semibold '>Related Products</h1>
