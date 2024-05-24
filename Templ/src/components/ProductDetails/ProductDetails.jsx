@@ -3,6 +3,8 @@ import Style from './ProductDetails.module.css';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Slider from "react-slick";
+import { useQuery } from "@tanstack/react-query";
+import { RingLoader } from "react-spinners";
 
 
 
@@ -28,12 +30,30 @@ export default function ProductDetails() {
     axios.get(`https://ecommerce.routemisr.com/api/v1/products/${id}`)
     .then( ({data})=>{
       setProductDetails(data.data)
-      console.log(data.data.images);
+      // console.log(data.data.images);
     })
     .catch( ()=>{
 
-    })
-  }
+    })}
+    // function details(id) {
+      
+    //   return axios.get(`https://ecommerce.routemisr.com/api/v1/products/${id}`);
+      
+    // }
+    // let { isPending, isError, error, data, isLoading } = useQuery({
+    //   queryKey: ["productDetails"],
+    //   queryFn: ()=>{
+    //     details(id)
+    //   },
+    //   // refetchInterval: 3000,
+    //   // refetchIntervalInBackground: true,
+    //   // staleTime:5000,
+    //   // retry:10
+    // });
+    // console.log(data);
+    // console.log(error);
+    // console.log(isPending);
+  
   function getRelatedProducts(category) {
     axios.get(`https://ecommerce.routemisr.com/api/v1/products`)
     .then( ({data})=>{
@@ -55,7 +75,7 @@ export default function ProductDetails() {
     <div className="row px-5 mx-5">
       <div className='w-1/4'>
         <Slider {...settings}>
-            {productDetails?.images.map((src)=> <img className='w-full ' src={src} alt={productDetails?.title} />)} 
+            {productDetails?.images.map((src)=> <img key={id} className='w-full ' src={src} alt={productDetails?.title} />)} 
                
         </Slider>
         

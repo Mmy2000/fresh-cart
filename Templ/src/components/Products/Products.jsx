@@ -2,27 +2,56 @@ import React, { useEffect, useState } from 'react';
 import Style from './Products.module.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { useQuery } from "@tanstack/react-query";
+import { RingLoader } from 'react-spinners';
 
 
 export default function Products() {
-    const [recentProducts, setRecentProducts] = useState([]);
+  //   const [recentProducts, setRecentProducts] = useState([]);
 
-  function getProducts() {
-    axios.get(`https://ecommerce.routemisr.com/api/v1/products`)
-    .then( ({data})=>{
-      setRecentProducts(data.data)
-    })
-    .catch( (error)=>{
+  // function getProducts() {
+  //   axios.get(`https://ecommerce.routemisr.com/api/v1/products`)
+  //   .then( ({data})=>{
+  //     setRecentProducts(data.data)
+  //   })
+  //   .catch( (error)=>{
 
-    })
+  //   })
+  // }
+  //   useEffect(()=>{
+  //     getProducts()
+  //   } , []);
+  function products() {
+    return axios.get(`https://ecommerce.routemisr.com/api/v1/products`);
   }
-    useEffect(()=>{
-      getProducts()
-    } , []);
+  let { isPending, isError, error, data, isLoading } = useQuery({
+    queryKey: ["products"],
+    queryFn: products,
+    refetchInterval: 3000,
+    refetchIntervalInBackground: true,
+    // staleTime:5000,
+    // retry:10
+  });
+  if (isLoading) {
+    return (
+      <div className="flex items-center w-full justify-center">
+        <RingLoader color="green" />
+      </div>
+    );
+  }
+  if (isError) {
+    return (
+      <>
+        <div className="flex items-center w-full justify-center">
+          <h3>{error}</h3>
+        </div>
+      </>
+    );
+  }
   return <>
     <div className="row">
 
-    {recentProducts.map( (product)=>
+    {data?.data.data.map( (product)=>
         <div key={product.id} className="w-1/6 py-4">
       <div className="product py-4 px-4">
         <Link to={`/productdetails/${product.id}/${product.category.name}`}>

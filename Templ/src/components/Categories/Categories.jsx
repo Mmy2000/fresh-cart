@@ -1,32 +1,60 @@
 import React, { useEffect, useState } from 'react';
 import Style from './Categories.module.css';
 import axios from 'axios';
-
+import { useQuery } from "@tanstack/react-query";
+import { RingLoader } from "react-spinners";
 
 
 export default function Categories() {
-    const [categories, setCategories] = useState([]);
+    // const [categories, setCategories] = useState([]);
 
-    function getCategories() {
-      axios.get(`https://ecommerce.routemisr.com/api/v1/categories`)
-      .then( (({data})=>{
-        setCategories(data.data)
-      }))
-      .catch( ()=>{
+    // function getCategories() {
+    //   axios.get(`https://ecommerce.routemisr.com/api/v1/categories`)
+    //   .then( (({data})=>{
+    //     setCategories(data.data)
+    //   }))
+    //   .catch( ()=>{
 
-      })
+    //   })
+    // }
+    // useEffect(()=>{
+    //   getCategories()
+    // } , []);
+    function categories() {
+      return axios.get(`https://ecommerce.routemisr.com/api/v1/categories`);
     }
-    useEffect(()=>{
-      getCategories()
-    } , []);
+    let { isPending, isError, error, data, isLoading } = useQuery({
+      queryKey: ["categories"],
+      queryFn: categories,
+      refetchInterval: 3000,
+      refetchIntervalInBackground: true,
+      // staleTime:5000,
+      // retry:10
+    });
+    if (isLoading) {
+      return (
+        <div className="flex items-center w-full justify-center">
+          <RingLoader color="green" />
+        </div>
+      );
+    }
+    if (isError) {
+      return (
+        <>
+          <div className="flex items-center w-full justify-center">
+            <h3>{error}</h3>
+          </div>
+        </>
+      );
+    }
   return <>
   <div className="row">
-    {categories.map( (category)=> 
+    {data?.data.data.map( (category)=> 
       <div key={category.id} className='w-1/6 py-4 '>
         <div className="brand relative mx-4 ">
           <img className='w-full h-[300px]' src={category.image} alt="" />
           <div className="cover  ">
-            <h3 className='text-2xl font-extrabold pt-2'>{category.name}</h3>
+            <h3 className='text-xl font-extrabold pt-2'>{category.name}</h3>
           </div>
         </div>
       </div>
