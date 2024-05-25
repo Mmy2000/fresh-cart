@@ -56,7 +56,7 @@ export default function Brands() {
       <div className="row">
         {data?.data.data.map((brand) => (
           <div key={brand._id} className="w-1/6 py-4 ">
-            <Link to={`/branddetails/${brand.name}`}>
+            <Link to={`/brands/${brand.name}`}>
               <div className="brand relative  mx-4">
                 <img className="w-full" src={brand.image} alt="" />
                 <div className="cover ">

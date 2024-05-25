@@ -3,6 +3,7 @@ import Style from './Categories.module.css';
 import axios from 'axios';
 import { useQuery } from "@tanstack/react-query";
 import { RingLoader } from "react-spinners";
+import { Link } from 'react-router-dom';
 
 
 export default function Categories() {
@@ -47,18 +48,24 @@ export default function Categories() {
         </>
       );
     }
-  return <>
-  <div className="row">
-    {data?.data.data.map( (category)=> 
-      <div key={category.id} className='w-1/6 py-4 '>
-        <div className="brand relative mx-4 ">
-          <img className='w-full h-[300px]' src={category.image} alt="" />
-          <div className="cover  ">
-            <h3 className='text-xl font-extrabold pt-2'>{category.name}</h3>
+  return (
+    <>
+      <div className="row">
+        {data?.data.data.map((category) => (
+          <div key={category.id} className="w-1/6 py-4 ">
+            <Link to={`/categories/${category.name}`}>
+              <div className="brand relative mx-4 ">
+                <img className="w-full h-[300px]" src={category.image} alt="" />
+                <div className="cover  ">
+                  <h3 className="text-xl font-extrabold pt-2">
+                    {category.name}
+                  </h3>
+                </div>
+              </div>
+            </Link>
           </div>
-        </div>
+        ))}
       </div>
-    )}
-  </div>
-  </>
+    </>
+  );
 }

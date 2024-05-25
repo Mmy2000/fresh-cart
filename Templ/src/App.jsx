@@ -26,6 +26,7 @@ import {
   useQuery,
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import CategoriesDetails from "./components/CategoriesDetails/CategoriesDetails";
 
 let router = createBrowserRouter([
   {
@@ -81,7 +82,7 @@ let router = createBrowserRouter([
         ),
       },
       {
-        path: "branddetails/:brand",
+        path: "brands/:brand",
         element: (
           <ProtectedRoute>
             <BrandDetails />
@@ -93,6 +94,14 @@ let router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <Categories />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "categories/:category",
+        element: (
+          <ProtectedRoute>
+            <CategoriesDetails />
           </ProtectedRoute>
         ),
       },
