@@ -3,6 +3,7 @@ import Style from './Brands.module.css';
 import axios from 'axios';
 import { useQuery } from "@tanstack/react-query";
 import { RingLoader } from "react-spinners";
+import { Link } from 'react-router-dom';
 
 export default function Brands() {
   function brands() {
@@ -50,18 +51,22 @@ export default function Brands() {
     // useEffect(()=>{
     //   getBrands()
     // } , []);
-  return <>
-    <div className="row">
-      {data?.data.data.map( (brand)=> 
-      <div key={brand._id} className='w-1/6 py-4 '>
-        <div className="brand relative  mx-4">
-          <img className='w-full' src={brand.image} alt="" />
-          <div className="cover ">
-            <h3 className='text-xl font-extrabold pt-2'>{brand.name}</h3>
+  return (
+    <>
+      <div className="row">
+        {data?.data.data.map((brand) => (
+          <div key={brand._id} className="w-1/6 py-4 ">
+            <Link to={`/branddetails/${brand.name}`}>
+              <div className="brand relative  mx-4">
+                <img className="w-full" src={brand.image} alt="" />
+                <div className="cover ">
+                  <h3 className="text-xl font-extrabold pt-2">{brand.name}</h3>
+                </div>
+              </div>
+            </Link>
           </div>
-        </div>
-      </div>)}
-      
-    </div>
-  </>
+        ))}
+      </div>
+    </>
+  );
 }

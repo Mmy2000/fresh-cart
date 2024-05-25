@@ -8,6 +8,7 @@ import Home from "./components/Home/Home";
 import Products from "./components/Products/Products";
 import Cart from "./components/Cart/Cart";
 import Brands from "./components/Brands/Brands";
+import BrandDetails from "./components/BrandDetails/BrandDetails";
 import Categories from "./components/Categories/Categories";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
@@ -16,6 +17,9 @@ import Notfound from "./components/Notfound/Notfound";
 import About from "./components/About/About";
 import UserContextProvider from "./Context/UserContext";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+
+
+
 import {
   QueryClient,
   QueryClientProvider,
@@ -73,6 +77,14 @@ let router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <Brands />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "branddetails/:brand",
+        element: (
+          <ProtectedRoute>
+            <BrandDetails />
           </ProtectedRoute>
         ),
       },
