@@ -71,52 +71,79 @@ export default function ProductDetails() {
       getProductDetails(id)
       getRelatedProducts(category)
     } , [id,category]);
-  return <>
-    {productDetails?<div className="row px-5 mx-5">
-      <div className='w-1/4'>
-        <Slider {...settings}>
-            {productDetails?.images.map((src)=> <img key={id} className='w-full ' src={src} alt={productDetails?.title} />)} 
-               
-        </Slider>
-        
-      </div>
-      <div className='w-3/4 p-6'>
-        <h1 className='text-lg font-normal text-slate-900 '>{productDetails?.title}</h1>
-        <p className='font-light mt-4 text-gray-700'>{productDetails?.description}</p>
-        <div className='flex items-center mt-4 w-full justify-between'>
-          <span className='mb-2'>{productDetails?.price} EGP</span>
-          <span>{productDetails?.ratingsAverage} <i className='fas fa-star text-yellow-500'></i></span>
-
+  return (
+    <>
+      {productDetails ? (
+        <div className="row px-5 mx-5">
+          <div className="w-full  md:w-1/4 ">
+            <Slider {...settings}>
+              {productDetails?.images.map((src) => (
+                <img
+                  key={id}
+                  className="w-full "
+                  src={src}
+                  alt={productDetails?.title}
+                />
+              ))}
+            </Slider>
+          </div>
+          <div className="w-full md:w-3/4 p-6">
+            <h1 className="text-lg font-normal text-slate-900 ">
+              {productDetails?.title}
+            </h1>
+            <p className="font-light mt-4 text-gray-700">
+              {productDetails?.description}
+            </p>
+            <div className="flex items-center mt-4 w-full justify-between">
+              <span className="mb-2">{productDetails?.price} EGP</span>
+              <span>
+                {productDetails?.ratingsAverage}{" "}
+                <i className="fas fa-star text-yellow-500"></i>
+              </span>
+            </div>
+            <button className="btn">add to cart</button>
+          </div>
         </div>
-        <button className='btn'>add to cart</button>
-      </div>
-    </div>:<div className="flex items-center w-full justify-center">
-        <RingLoader color="green" />
-      </div>}
-
-    <div className="row px-5 mx-5">
-      <h1 className='text-center text-lg w-full  font-semibold '>Related Products</h1>
-      <div className='w-full'>
-      <Slider {...settings2}>
-      {relatedProducts?.map((product) => 
-        <div key={product.id} className="w-1/6 py-4">
-      <div className="product py-4 px-4">
-        <Link to={`/productdetails/${product.id}/${product.category.name}`}>
-        <img className='w-full' src={product.imageCover} />
-        <span className='block font-light text-green-600'>{product.category.name}</span>
-        <h3 className='text-lg font-normal text-gray-900 mb-4'>{product.title.split(' ').slice(0,2).join(' ')}</h3>
-        <div className='flex items-center justify-between'>
-          <span>{product.price} EGP</span>
-          <span>{product.ratingsAverage} <i className='fas fa-star text-yellow-500'></i></span>
-
+      ) : (
+        <div className="flex items-center w-full justify-center">
+          <RingLoader color="green" />
         </div>
-        <button className='btn'>add to cart</button>
-        </Link>
-      </div>
-    </div>
       )}
-      </Slider>
+
+      <div className="row px-5 mx-5">
+        <h1 className="text-center text-lg w-full  font-semibold ">
+          Related Products
+        </h1>
+        <div className="w-full">
+          <Slider {...settings2}>
+            {relatedProducts?.map((product) => (
+              <div key={product.id} className="w-1/2 sm:w-1/4 xl:w-1/6 py-4">
+                <div className="product py-4 px-4">
+                  <Link
+                    to={`/productdetails/${product.id}/${product.category.name}`}
+                  >
+                    <img className="w-full" src={product.imageCover} />
+                    <span className="block font-light text-green-600">
+                      {product.category.name}
+                    </span>
+                    <h3 className="text-lg font-normal text-gray-900 mb-4">
+                      {product.title.split(" ").slice(0, 2).join(" ")}
+                    </h3>
+                    <div className="flex items-center justify-between">
+                      <span>{product.price} EGP</span>
+                      <span>
+                        {product.ratingsAverage}{" "}
+                        <i className="fas fa-star text-yellow-500"></i>
+                      </span>
+                    </div>
+                    <button className="btn">add to cart</button>
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </Slider>
+        </div>
       </div>
-    </div>
-  </>
+    </>
+  );
 }

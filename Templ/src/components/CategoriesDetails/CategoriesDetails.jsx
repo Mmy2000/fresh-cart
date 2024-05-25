@@ -35,7 +35,7 @@ export default function CategoriesDetails() {
       {relatedProducts ? (
         <div className="row">
           {relatedProducts?.map((product) => (
-            <div key={product.id} className="w-1/6 py-4">
+            <div key={product.id} className="w-1/2 sm:w-1/4 xl:w-1/6 py-4">
               <div className="product py-4 px-4">
                 <Link
                   to={`/productdetails/${product.id}/${product.category.name}`}

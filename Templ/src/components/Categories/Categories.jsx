@@ -52,7 +52,7 @@ export default function Categories() {
     <>
       <div className="row">
         {data?.data.data.map((category) => (
-          <div key={category.id} className="w-1/6 py-4 ">
+          <div key={category.id} className="w-1/2 sm:w-1/4 xl:w-1/6 py-4 ">
             <Link to={`/categories/${category.name}`}>
               <div className="brand relative mx-4 ">
                 <img className="w-full h-[300px]" src={category.image} alt="" />
