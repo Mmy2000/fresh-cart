@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Style from './Products.module.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useQuery } from "@tanstack/react-query";
 import { RingLoader } from 'react-spinners';
+import { CartContext } from '../../Context/CartContext';
 
 
 export default function Products() {
@@ -21,6 +22,18 @@ export default function Products() {
   //   useEffect(()=>{
   //     getProducts()
   //   } , []);
+
+  let {addToCart} = useContext(CartContext)
+
+  async function addProductToCart(productId) {
+    let response = await addToCart(productId)
+    if (response.status === 200) {
+      console.log("added");
+    } else {
+      console.log("error");
+    }
+    console.log(response.status);
+  }
   function products() {
     return axios.get(`https://ecommerce.routemisr.com/api/v1/products`);
   }
@@ -52,7 +65,7 @@ export default function Products() {
     <>
       <div className="row">
         {data?.data.data.map((product) => (
-          <div key={product.id} className="w-1/2 sm:w-1/4 xl:w-1/6py-4">
+          <div key={product.id} className="w-1/2 sm:w-1/4 xl:w-1/6 py-4">
             <div className="product py-4 px-4">
               <Link
                 to={`/productdetails/${product.id}/${product.category.name}`}
@@ -71,8 +84,8 @@ export default function Products() {
                     <i className="fas fa-star text-yellow-500"></i>
                   </span>
                 </div>
-                <button className="btn">add to cart</button>
               </Link>
+              <button className="btn" onClick={()=> addProductToCart(product.id)}>add to cart</button>
             </div>
           </div>
         ))}
