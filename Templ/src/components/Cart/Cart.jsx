@@ -2,6 +2,7 @@
 import Style from './Cart.module.css';
 import { CartContext } from '../../Context/CartContext';
 import { ToastContainer, toast } from "react-toastify";
+import { RingLoader } from 'react-spinners';
 
 export default function Cart() {
     
@@ -18,7 +19,7 @@ export default function Cart() {
       setisloading(true)
       if (count < 1) {
         setisloading(false)
-        return;
+        return
       }
       
       let response = await updateCartItem(productId, count);
@@ -42,7 +43,7 @@ export default function Cart() {
   return <>
     
 
-<div className="relative overflow-x-auto shadow-md  sm:rounded-lg">
+{cartDetails?<div className="relative overflow-x-auto shadow-md  sm:rounded-lg">
   <table className="w-75 my-5 mx-auto text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
       <tr>
@@ -66,7 +67,7 @@ export default function Cart() {
     <tbody>
       {cartDetails?.data.products.map( (product)=> <tr key={product.product.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
         <td className="p-4">
-          <img src={product.product.imageCover} className="w-16 md:w-32 max-w-full max-h-full" alt="Apple Watch" />
+          <img src={product?.product.imageCover} className="w-16 md:w-32 max-w-full max-h-full" alt="Apple Watch" />
         </td>
         <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
           {product.product.title}
@@ -100,7 +101,9 @@ export default function Cart() {
       
     </tbody>
   </table>
-</div>
+</div>:<div className="flex items-center w-full justify-center">
+        <RingLoader color="green" />
+      </div>}
 
 
   </>
