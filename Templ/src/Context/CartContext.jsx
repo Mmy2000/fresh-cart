@@ -9,6 +9,14 @@ export default function CartContextProvider(props) {
       token: localStorage.getItem("userTaken"),
     };
 
+    function displayCart() {
+        return axios.get(`https://ecommerce.routemisr.com/api/v1/cart` , {
+            headers:headers
+        })
+        .then( (response)=> response)
+        .catch( (error)=> error)
+    }
+
     function addToCart(productId) {
         return axios
           .post(
@@ -23,7 +31,7 @@ export default function CartContextProvider(props) {
           .then((response)=> response)
           .catch((err)=> err);
     }
-    return <CartContext.Provider value={{addToCart}}>
+    return <CartContext.Provider value={{addToCart , displayCart}}>
         {props.children}
     </CartContext.Provider>
 }
