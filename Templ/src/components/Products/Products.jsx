@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useQuery } from "@tanstack/react-query";
 import { RingLoader } from 'react-spinners';
 import { CartContext } from '../../Context/CartContext';
-
+import { ToastContainer, toast } from "react-toastify";
 
 export default function Products() {
   //   const [recentProducts, setRecentProducts] = useState([]);
@@ -28,9 +28,9 @@ export default function Products() {
   async function addProductToCart(productId) {
     let response = await addToCart(productId)
     if (response.data.status === 'success') {
-      console.log("added");
+      toast.success("Product added successfully to your cart");
     } else {
-      console.log("error");
+      toast.error("Product Not added ");
     }
     // console.log(response);
   }
