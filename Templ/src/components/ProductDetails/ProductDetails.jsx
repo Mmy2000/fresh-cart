@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Style from './ProductDetails.module.css';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Slider from "react-slick";
 import { useQuery } from "@tanstack/react-query";
 import { RingLoader } from "react-spinners";
+import { CartContext } from "../../Context/CartContext";
+import { ToastContainer, toast } from "react-toastify";
 
 
 
@@ -53,6 +55,17 @@ export default function ProductDetails() {
     // console.log(data);
     // console.log(error);
     // console.log(isPending);
+    let { addToCart } = useContext(CartContext);
+
+    async function addProductToCart(productId) {
+      let response = await addToCart(productId);
+      if (response.data.status === "success") {
+        toast.success("Product added successfully to your cart");
+      } else {
+        toast.error("Product Not added ");
+      }
+      // console.log(response);
+    }
   
   function getRelatedProducts(category) {
     axios.get(`https://ecommerce.routemisr.com/api/v1/products`)
@@ -101,7 +114,7 @@ export default function ProductDetails() {
                 <i className="fas fa-star text-yellow-500"></i>
               </span>
             </div>
-            <button className="btn">add to cart</button>
+            <button className="btn" onClick={()=> addProductToCart(productDetails.id)}>add to cart</button>
           </div>
         </div>
       ) : (
@@ -136,8 +149,8 @@ export default function ProductDetails() {
                         <i className="fas fa-star text-yellow-500"></i>
                       </span>
                     </div>
-                    <button className="btn">add to cart</button>
                   </Link>
+                  <button className="btn" onClick={()=> addProductToCart(product.id)}>add to cart</button>
                 </div>
               </div>
             ))}

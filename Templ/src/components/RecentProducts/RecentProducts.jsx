@@ -1,12 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Style from './RecentProducts.module.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { RingLoader } from 'react-spinners';
+import { CartContext } from "../../Context/CartContext";
+import { ToastContainer, toast } from "react-toastify";
 
 
 export default function RecentProducts() {
+  let { addToCart } = useContext(CartContext);
+
+  async function addProductToCart(productId) {
+    let response = await addToCart(productId);
+    if (response.data.status === "success") {
+      toast.success("Product added successfully to your cart");
+    } else {
+      toast.error("Product Not added ");
+    }
+    // console.log(response);
+  }
 
   function recent() {
     return axios.get(`https://ecommerce.routemisr.com/api/v1/products`);
@@ -78,8 +91,9 @@ export default function RecentProducts() {
                       <i className="fas fa-star text-yellow-500"></i>
                     </span>
                   </div>
-                  <button className="btn">add to cart</button>
+                  
                 </Link>
+                <button className="btn" onClick={()=> addProductToCart(product.id)}>add to cart</button>
               </div>
             </div>
           ))}
