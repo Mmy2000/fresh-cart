@@ -7,17 +7,24 @@ export default function Cart() {
     
     const [cartDetails, setCartDetails] = useState(null);
     const [isloading, setisloading] = useState(false);
-    let { displayCart, deleteCartItem } = useContext(CartContext);
+    let { displayCart, deleteCartItem , updateCartItem } = useContext(CartContext);
 
     async function getCart(){
       let response = await displayCart()
       setCartDetails(response.data);
     }
+
+    async function updateCartQuantity(productId , count){
+      setisloading(true)
+      let response = await updateCartItem(productId, count);
+      setCartDetails(response.data);
+      toast.success("Cart Item updated successfully");
+      setisloading(false)
+    }
     
     async function deleteItem(productId) {
       setisloading(true)
       let response = await deleteCartItem(productId)
-      console.log(response);
       setCartDetails(response.data);
       toast.success("Cart Item deleted successfully");
       setisloading(false)
@@ -61,20 +68,20 @@ export default function Cart() {
         </td>
         <td className="px-6 py-4">
           <div className="flex items-center">
-            <button className="inline-flex items-center justify-center p-1 me-3 text-sm font-medium h-6 w-6 text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
+            <button onClick={()=> updateCartQuantity(product.product.id , product.count-1)} className="inline-flex items-center justify-center p-1 me-3 text-sm font-medium h-6 w-6 text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
               <span className="sr-only">Quantity button</span>
-              <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
+              {isloading?<i className='fas fa-spinner fa-spin me-2'></i>:<svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M1 1h16" />
-              </svg>
+              </svg>}
             </button>
             <div>
               {product.count}
             </div>
-            <button className="inline-flex items-center justify-center h-6 w-6 p-1 ms-3 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
+            <button onClick={()=> updateCartQuantity(product.product.id , product.count+1)} className="inline-flex items-center justify-center h-6 w-6 p-1 ms-3 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
               <span className="sr-only">Quantity button</span>
-              <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+              {isloading?<i className='fas fa-spinner fa-spin me-2'></i>:<svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 1v16M1 9h16" />
-              </svg>
+              </svg>}
             </button>
           </div>
         </td>
