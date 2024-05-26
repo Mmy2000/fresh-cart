@@ -17,6 +17,14 @@ export default function CartContextProvider(props) {
         .catch( (error)=> error)
     }
 
+    function deleteCartItem(productID) {
+        return axios.delete(`https://ecommerce.routemisr.com/api/v1/cart/${productID}` , {
+            headers:headers
+        })
+        .then( (response)=> response)
+        .catch( (error)=> error)
+    }
+
     function addToCart(productId) {
         return axios
           .post(
@@ -31,7 +39,7 @@ export default function CartContextProvider(props) {
           .then((response)=> response)
           .catch((err)=> err);
     }
-    return <CartContext.Provider value={{addToCart , displayCart}}>
+    return <CartContext.Provider value={{addToCart , displayCart , deleteCartItem}}>
         {props.children}
     </CartContext.Provider>
 }
