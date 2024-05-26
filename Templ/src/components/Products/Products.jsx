@@ -27,12 +27,12 @@ export default function Products() {
 
   async function addProductToCart(productId) {
     let response = await addToCart(productId)
-    if (response.status === 200) {
+    if (response.data.status === 'success') {
       console.log("added");
     } else {
       console.log("error");
     }
-    console.log(response.status);
+    // console.log(response);
   }
   function products() {
     return axios.get(`https://ecommerce.routemisr.com/api/v1/products`);
