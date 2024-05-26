@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Style from './CategoriesSlider.module.css';
 import Slider from "react-slick";
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
 
@@ -29,15 +30,27 @@ export default function CategoriesSlider() {
     useEffect(()=>{
       getCategories()
     } , []);
-  return <>
-    <div className='p-5 mx-5'>
-      <h2 className='py-4 text-gray-800 font-light text-xl'>Shop popular Categories</h2>
-      <Slider {...settings}>
-    {categories.map( (category)=> <div key={category.id}>
-      <img className='category-image w-full'  src={category.image} alt="" />
-      <h3 className='font-light mt-2'>{category.name}</h3>
-    </div>)}
-    </Slider>
-    </div>
-  </>
+  return (
+    <>
+      <div className="p-5 mx-5">
+        <h2 className="py-4 text-gray-800 font-light text-xl">
+          Shop popular Categories
+        </h2>
+        <Slider {...settings}>
+          {categories.map((category) => (
+            <div key={category.id}>
+              <Link to={`/categories/${category.name}`}>
+                <img
+                  className="category-image w-full"
+                  src={category.image}
+                  alt=""
+                />
+                <h3 className="font-light mt-2">{category.name}</h3>
+              </Link>
+            </div>
+          ))}
+        </Slider>
+      </div>
+    </>
+  );
 }

@@ -4,7 +4,7 @@ import { CartContext } from '../../Context/CartContext';
 import { ToastContainer, toast } from "react-toastify";
 
 export default function Cart() {
-    const [counter, setCounter] = useState(0);
+    
     const [cartDetails, setCartDetails] = useState(null);
     const [isloading, setisloading] = useState(false);
     let { displayCart, deleteCartItem } = useContext(CartContext);
@@ -13,6 +13,7 @@ export default function Cart() {
       let response = await displayCart()
       setCartDetails(response.data);
     }
+    
     async function deleteItem(productId) {
       setisloading(true)
       let response = await deleteCartItem(productId)
@@ -21,9 +22,11 @@ export default function Cart() {
       toast.success("Cart Item deleted successfully");
       setisloading(false)
     }
+
     useEffect(()=>{
       getCart()
     } , []);
+
   return <>
     
 
