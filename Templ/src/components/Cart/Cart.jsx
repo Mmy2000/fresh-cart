@@ -16,6 +16,11 @@ export default function Cart() {
 
     async function updateCartQuantity(productId , count){
       setisloading(true)
+      if (count < 1) {
+        setisloading(false)
+        return;
+      }
+      
       let response = await updateCartItem(productId, count);
       setCartDetails(response.data);
       toast.success("Cart Item updated successfully");
