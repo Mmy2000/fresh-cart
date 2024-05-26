@@ -12,15 +12,19 @@ import { ToastContainer, toast } from "react-toastify";
 export default function CategoriesDetails() {
   let {category} = useParams()
   const [relatedProducts, setRelatedProducts] = useState(null);
+  const [isloading, setisLoading] = useState(false);
   console.log(category);
   let { addToCart } = useContext(CartContext);
 
   async function addProductToCart(productId) {
+    setisLoading(true)
     let response = await addToCart(productId);
     if (response.data.status === "success") {
       toast.success("Product added successfully to your cart");
+      setisLoading(false)
     } else {
       toast.error("Product Not added ");
+      setisLoading(false)
     }
     // console.log(response);
   }
@@ -68,7 +72,7 @@ export default function CategoriesDetails() {
                     </span>
                   </div>
                 </Link>
-                <button className="btn" onClick={()=> addProductToCart(product.id)}>add to cart</button>
+                <button className="btn" onClick={()=> addProductToCart(product.id)}>{isloading?<i className='fas fa-spinner fa-spin me-2'></i>:'add to cart'}</button>
               </div>
             </div>
           ))}

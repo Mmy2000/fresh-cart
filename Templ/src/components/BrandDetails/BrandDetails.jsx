@@ -12,14 +12,18 @@ export default function BrandDetails() {
   let {brand} = useParams()
   console.log(brand);
   const [relatedProducts, setRelatedProducts] = useState(null);
+  const [isloading, setisLoading] = useState(false);
   let { addToCart } = useContext(CartContext);
 
   async function addProductToCart(productId) {
+    setisLoading(true)
     let response = await addToCart(productId);
     if (response.data.status === "success") {
       toast.success("Product added successfully to your cart");
+      setisLoading(false)
     } else {
       toast.error("Product Not added ");
+      setisLoading(false)
     }
     // console.log(response);
   }
@@ -68,7 +72,7 @@ export default function BrandDetails() {
                     </span>
                   </div>
                 </Link>
-                <button className="btn" onClick={()=> addProductToCart(product.id)}>add to cart</button>
+                <button className="btn" onClick={()=> addProductToCart(product.id)}>{isloading?<i className='fas fa-spinner fa-spin me-2'></i>:'add to cart'}</button>
               </div>
             </div>
           ))}

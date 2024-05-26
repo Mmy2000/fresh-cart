@@ -1,11 +1,12 @@
  import React, { useContext, useEffect, useState } from 'react';
 import Style from './Cart.module.css';
 import { CartContext } from '../../Context/CartContext';
-
+import { ToastContainer, toast } from "react-toastify";
 
 export default function Cart() {
     const [counter, setCounter] = useState(0);
     const [cartDetails, setCartDetails] = useState(null);
+    const [isloading, setisloading] = useState(false);
     let { displayCart, deleteCartItem } = useContext(CartContext);
 
     async function getCart(){
@@ -13,9 +14,12 @@ export default function Cart() {
       setCartDetails(response.data);
     }
     async function deleteItem(productId) {
+      setisloading(true)
       let response = await deleteCartItem(productId)
       console.log(response);
       setCartDetails(response.data);
+      toast.success("Cart Item deleted successfully");
+      setisloading(false)
     }
     useEffect(()=>{
       getCart()
@@ -75,7 +79,7 @@ export default function Cart() {
           ${product.price}
         </td>
         <td className="px-6 py-4">
-          <span onClick={ ()=> deleteItem(product.product.id)} className="font-medium text-red-600 dark:text-red-500 hover:underline">Remove</span>
+          <button onClick={ ()=> deleteItem(product.product.id)} className="font-medium text-white cursor-pointer py-2 px-2 rounded bg-red-600">{isloading?<i className='fas fa-spinner fa-spin me-2'></i>:'Remove'}</button>
         </td>
       </tr>)}
       

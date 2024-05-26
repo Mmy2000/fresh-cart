@@ -24,13 +24,17 @@ export default function Products() {
   //   } , []);
 
   let {addToCart} = useContext(CartContext)
+  const [isloading, setisLoading] = useState(false);
 
   async function addProductToCart(productId) {
+    setisLoading(true)
     let response = await addToCart(productId)
     if (response.data.status === 'success') {
       toast.success("Product added successfully to your cart");
+      setisLoading(false)
     } else {
       toast.error("Product Not added ");
+      setisLoading(false)
     }
     // console.log(response);
   }
@@ -85,7 +89,7 @@ export default function Products() {
                   </span>
                 </div>
               </Link>
-              <button className="btn" onClick={()=> addProductToCart(product.id)}>add to cart</button>
+              <button className="btn" onClick={()=> addProductToCart(product.id)}>{isloading?<i className='fas fa-spinner fa-spin me-2'></i>:'add to cart'}</button>
             </div>
           </div>
         ))}
