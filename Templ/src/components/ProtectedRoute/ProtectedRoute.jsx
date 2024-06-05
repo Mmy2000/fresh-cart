@@ -4,7 +4,6 @@ import { Navigate } from 'react-router-dom';
 
 
 export default function ProtectedRoute(props) {
-  console.log(props.children);
     const [counter, setCounter] = useState(0);
     if (localStorage.getItem('userTaken') !== null) {
       return props.children

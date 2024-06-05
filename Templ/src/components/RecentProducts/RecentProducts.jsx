@@ -11,16 +11,20 @@ import { ToastContainer, toast } from "react-toastify";
 export default function RecentProducts() {
   let { addToCart } = useContext(CartContext);
   const [isloading, setisLoading] = useState(false);
+  const [currentId, setcurrentId] = useState('');
 
   async function addProductToCart(productId) {
     setisLoading(true)
+    
     let response = await addToCart(productId);
     if (response.data.status === "success") {
       toast.success("Product added successfully to your cart");
       setisLoading(false)
+      setcurrentId(currentId);
     } else {
       toast.error("Product Not added ");
       setisLoading(false);
+      setcurrentId(currentId);
     }
     // console.log(response);
   }
@@ -97,7 +101,7 @@ export default function RecentProducts() {
                   </div>
                   
                 </Link>
-                <button className="btn" onClick={()=> addProductToCart(product.id)}>{isloading?<i className='fas fa-spinner fa-spin me-2'></i>:'add to cart'}</button>
+                <button className="btn" onClick={()=> addProductToCart(product.id)}>{currentId === product.id && isloading?<i className='fas fa-spinner fa-spin me-2'></i>:'add to cart'}</button>
               </div>
             </div>
           ))}

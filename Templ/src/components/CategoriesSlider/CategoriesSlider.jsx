@@ -38,7 +38,7 @@ export default function CategoriesSlider() {
         </h2>
         <Slider {...settings}>
           {categories.map((category) => (
-            <div key={category.id}>
+            <div key={category._id}>
               <Link to={`/categories/${category.name}`}>
                 <img
                   className="category-image w-full"
