@@ -2,11 +2,15 @@ import React, { useContext, useEffect, useState } from 'react';
 import Style from './Wishlist.module.css';
 import { wishlistContext } from "../../Context/wishlistContext";
 import { Link } from 'react-router-dom';
-Link
+import { CartContext } from "../../Context/CartContext";
+import { ToastContainer, toast } from "react-toastify";
+
 
 export default function Wishlist() {
+    let { addToCart } = useContext(CartContext);
     let {displayWishlist}  = useContext(wishlistContext);
-    const [counter, setCounter] = useState(0);
+    const [isloading, setisLoading] = useState(false);
+    const [currentId, setcurrentId] = useState("");
     const [wishList, setwishList] = useState([]);
 
     async function getWishlist(){
@@ -17,6 +21,21 @@ export default function Wishlist() {
       // console.log(response.data.data);
       setwishList(response?.data.data);
       console.log(wishList);
+    }
+    async function addProductToCart(productId) {
+      setisLoading(true);
+
+      let response = await addToCart(productId);
+      if (response.data.status === "success") {
+        toast.success("Product added successfully to your cart");
+        setisLoading(false);
+        setcurrentId(currentId);
+      } else {
+        toast.error("Product Not added ");
+        setisLoading(false);
+        setcurrentId(currentId);
+      }
+      // console.log(response);
     }
     useEffect(()=>{
       getWishlist()

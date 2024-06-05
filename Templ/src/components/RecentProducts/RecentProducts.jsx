@@ -115,8 +115,10 @@ export default function RecentProducts() {
                   </div>
                   
                 </Link>
+                <div className='flex justify-between '>
                 <button className="btn" onClick={()=> addProductToCart(product.id)}>{currentId === product.id && isloading?<i className='fas fa-spinner fa-spin me-2'></i>:'add to cart'}</button>
-                <button className="btn" onClick={()=> addProductToWishlist(product.id)}>add to wishList</button>
+                <button className="btn2 w-1/4" onClick={()=> addProductToWishlist(product.id)}><i className="fa-solid fa-heart fa-xl"></i></button>
+                </div>
               </div>
             </div>
           ))}
