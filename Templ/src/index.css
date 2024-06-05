@@ -39,7 +39,19 @@ a , a:hover{
     transform: translateY(100%);
     opacity: 0;
 }
+.product .btn2 
+{
+    transition: transform 1s , opacity 1s;
+    transform: translateY(100%);
+    opacity: 0;
+}
 .product:hover .btn 
+{
+    opacity: 1;
+    transform: translateY(0%);
+
+}
+.product:hover .btn2 
 {
     opacity: 1;
     transform: translateY(0%);
@@ -66,7 +78,10 @@ a , a:hover{
     @apply flex flex-wrap py-8 items-center px-4
 }
 .btn{
-    @apply px-4 py-2 w-full rounded-lg text-white bg-green-600
+    @apply px-3 py-2  rounded-lg text-white bg-green-600
+}
+.btn2{
+    @apply px-1 py-1  rounded-lg text-white bg-green-600
 }
 .category-image{
     height: 200px;

@@ -6,10 +6,12 @@ import { useQuery } from '@tanstack/react-query';
 import { RingLoader } from 'react-spinners';
 import { CartContext } from "../../Context/CartContext";
 import { ToastContainer, toast } from "react-toastify";
+import { wishlistContext } from '../../Context/wishlistContext';
 
 
 export default function RecentProducts() {
   let { addToCart } = useContext(CartContext);
+  let { addToWishlist } = useContext(wishlistContext);
   const [isloading, setisLoading] = useState(false);
   const [currentId, setcurrentId] = useState('');
 
@@ -27,6 +29,18 @@ export default function RecentProducts() {
       setcurrentId(currentId);
     }
     // console.log(response);
+  }
+  async function addProductToWishlist(productId){
+    let response = await addToWishlist(productId)
+    if (response.data.status === "success") {
+      toast.success("Product added successfully to your wishlist");
+      setisLoading(false);
+      setcurrentId(currentId);
+    } else {
+      toast.error("Product Not added ");
+      setisLoading(false);
+      setcurrentId(currentId);
+    }
   }
 
   function recent() {
@@ -102,6 +116,7 @@ export default function RecentProducts() {
                   
                 </Link>
                 <button className="btn" onClick={()=> addProductToCart(product.id)}>{currentId === product.id && isloading?<i className='fas fa-spinner fa-spin me-2'></i>:'add to cart'}</button>
+                <button className="btn" onClick={()=> addProductToWishlist(product.id)}>add to wishList</button>
               </div>
             </div>
           ))}

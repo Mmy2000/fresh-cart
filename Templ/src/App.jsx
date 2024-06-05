@@ -28,6 +28,8 @@ import CategoriesDetails from "./components/CategoriesDetails/CategoriesDetails"
 import CartContextPRovider from "./Context/CartContext";
 import { Toaster } from "react-hot-toast";
 import { ToastContainer } from "react-toastify";
+import Wishlist from "./components/Wishlist/Wishlist";
+import WishlistContextProvider from "./Context/wishlistContext";
 
 
 
@@ -77,6 +79,14 @@ let router = createBrowserRouter([
         ),
       },
       {
+        path: "wishlist",
+        element: (
+          <ProtectedRoute>
+            <Wishlist />
+          </ProtectedRoute>
+        ),
+      },
+      {
         path: "brands",
         element: (
           <ProtectedRoute>
@@ -119,16 +129,18 @@ const queryClient = new QueryClient();
 function App() {
 
   return (
-    <CartContextPRovider>
-      <QueryClientProvider client={queryClient}>
-        <UserContextProvider>
-          <RouterProvider router={router}></RouterProvider>
-          <ToastContainer />
-          
-          <ReactQueryDevtools></ReactQueryDevtools>
-        </UserContextProvider>
-      </QueryClientProvider>
-    </CartContextPRovider>
+    <WishlistContextProvider>
+      <CartContextPRovider>
+        <QueryClientProvider client={queryClient}>
+          <UserContextProvider>
+            <RouterProvider router={router}></RouterProvider>
+            <ToastContainer />
+
+            <ReactQueryDevtools></ReactQueryDevtools>
+          </UserContextProvider>
+        </QueryClientProvider>
+      </CartContextPRovider>
+    </WishlistContextProvider>
   );
 }
 
