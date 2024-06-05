@@ -24,10 +24,19 @@ export default function WishlistContextProvider(props) {
       .then( (response)=> response)
       .catch( (error)=> error)
     }
+    function deleteFromWishlist(productId) {
+      return axios.delete(
+        `https://ecommerce.routemisr.com/api/v1/wishlist/${productId}`,
+        
+        { headers }
+      )
+      .then( (response)=> response)
+      .catch( (error)=> error)
+    }
     
 
     return (
-      <wishlistContext.Provider value={{ displayWishlist, addToWishlist }}>
+      <wishlistContext.Provider value={{ displayWishlist, addToWishlist,deleteFromWishlist }}>
         {props.children}
       </wishlistContext.Provider>
     );

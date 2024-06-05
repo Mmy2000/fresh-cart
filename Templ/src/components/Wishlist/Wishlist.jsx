@@ -4,11 +4,12 @@ import { wishlistContext } from "../../Context/wishlistContext";
 import { Link } from 'react-router-dom';
 import { CartContext } from "../../Context/CartContext";
 import { ToastContainer, toast } from "react-toastify";
+import { RingLoader } from 'react-spinners';
 
 
 export default function Wishlist() {
     let { addToCart } = useContext(CartContext);
-    let {displayWishlist}  = useContext(wishlistContext);
+    let { displayWishlist, deleteFromWishlist } = useContext(wishlistContext);
     const [isloading, setisLoading] = useState(false);
     const [currentId, setcurrentId] = useState("");
     const [wishList, setwishList] = useState([]);
@@ -35,19 +36,33 @@ export default function Wishlist() {
         setisLoading(false);
         setcurrentId(currentId);
       }
-      // console.log(response);
+      
+
+    }
+    async function deleteWishlist(productId) {
+      setisLoading(true);
+      let response = await deleteFromWishlist(productId);
+      console.log(response);
+      if (response.data.status === "success") {
+        setwishList(response?.data.data);
+        setisLoading(false);
+        toast.success("Product deleted successfully to your wishlist");
+      } else {
+        setisLoading(false);
+        toast.error("Product Not deleted ");
+      }
     }
     useEffect(()=>{
       getWishlist()
     } , []);
   return <>
   <>
-        <div className="row">
+        {wishList ? <div className="row">
           {wishList?.map((product) => (
             <div key={product.id} className="w-1/2 sm:w-1/4 xl:w-1/6 py-4">
               <div className="product py-4 px-4">
                 <Link
-                  to={`/productdetails/${product.id}/${product.category.name}`}
+                  to={`/productdetails/${product.id}/${product?.category.name}`}
                 >
                   <img className="w-full" src={product.imageCover} />
                   <span className="block font-light text-green-600">
@@ -67,12 +82,14 @@ export default function Wishlist() {
                 </Link>
                 <div className='flex justify-between '>
                 <button className="btn w-1/2" onClick={()=> addProductToCart(product.id)}>add to cart</button>
-                <button className="btn2 w-1/4" onClick={()=> addProductToWishlist(product.id)}><i className="fa-solid fa-heart fa-xl"></i></button>
+                <button className="btn2 w-1/4" onClick={()=> deleteWishlist(product.id)}><i className="fa-solid fa-heart fa-xl"></i></button>
                 </div>
               </div>
             </div>
           ))}
-        </div>
+        </div>:<div className="flex items-center w-full justify-center">
+          <RingLoader color="green" />
+        </div>}
       </>
     
   </>
