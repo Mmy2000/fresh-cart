@@ -12,6 +12,7 @@ export default function Cart() {
 
     async function getCart(){
       let response = await displayCart()
+      console.log(response);
       setCartDetails(response.data);
     }
 
