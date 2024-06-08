@@ -77,7 +77,8 @@ export default function Login() {
   {formik.errors.password && formik.touched.password?<div class="p-4 mb-2 text-sm text-red-800 rounded-lg bg-red-50 font-medium dark:bg-gray-800 dark:text-red-400" role="alert">
   {formik.errors.password}
 </div>:null}
-    <div className="flex text-center items-center">
+<span className='font-semibold '><Link className='text-green-800  hover:text-green-700' to={'/forgot'}>Forgot Password?</Link></span>
+    <div className="flex text-center mt-2 items-center">
       <button  type="submit" className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
       {isLoading?<i className='fas fa-spinner fa-spin me-2'></i>:'Login'}
       

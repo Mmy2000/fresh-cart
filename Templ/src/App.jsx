@@ -30,6 +30,8 @@ import { Toaster } from "react-hot-toast";
 import { ToastContainer } from "react-toastify";
 import Wishlist from "./components/Wishlist/Wishlist";
 import WishlistContextProvider from "./Context/wishlistContext";
+import Forgot from "./components/Forgot/Forgot";
+import VerifyCode from "./components/VerifyCode/VerifyCode";
 
 
 
@@ -92,6 +94,18 @@ let router = createBrowserRouter([
           <ProtectedRoute>
             <Brands />
           </ProtectedRoute>
+        ),
+      },
+      {
+        path: "forgot",
+        element: (
+            <Forgot />
+        ),
+      },
+      {
+        path: "verifyCode",
+        element: (
+            <VerifyCode/>
         ),
       },
       {
