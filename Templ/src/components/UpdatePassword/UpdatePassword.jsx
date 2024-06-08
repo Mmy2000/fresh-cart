@@ -5,6 +5,7 @@ import axios from "axios";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../Context/UserContext";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function UpdatePassword() {
   let navigate = useNavigate()
@@ -20,6 +21,7 @@ export default function UpdatePassword() {
         if (apiResponse?.status === 200 ) {
           localStorage.setItem("userTaken", apiResponse.data.token);
           setUserLogin(apiResponse.data.token);
+          toast.success("Password updated successfully");
           navigate("/login");
           console.log(apiResponse);
         }

@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import axios from "axios";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function VerifyCode() {
   let navigate = useNavigate()
@@ -16,6 +17,7 @@ export default function VerifyCode() {
         .then((apiResponse) => {
           console.log(apiResponse);
           if (apiResponse?.data?.status === "Success") {
+            toast.success("Success");
             navigate("/updatePassword");
           }
         })
