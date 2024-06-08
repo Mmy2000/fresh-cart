@@ -33,6 +33,7 @@ import WishlistContextProvider from "./Context/wishlistContext";
 import Forgot from "./components/Forgot/Forgot";
 import VerifyCode from "./components/VerifyCode/VerifyCode";
 import UpdatePassword from "./components/UpdatePassword/UpdatePassword";
+import ChangePassword from "./components/ChangePassword/ChangePassword";
 
 
 
@@ -113,6 +114,12 @@ let router = createBrowserRouter([
         path: "updatePassword",
         element: (
             <UpdatePassword/>
+        ),
+      },
+      {
+        path: "changePassword",
+        element: (
+            <ChangePassword/>
         ),
       },
       {
