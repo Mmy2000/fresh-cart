@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 
 export default function VerifyCode() {
+  let navigate = useNavigate()
     function handleVarify(formValues) {
       axios
         .post(
@@ -15,7 +16,7 @@ export default function VerifyCode() {
         .then((apiResponse) => {
           console.log(apiResponse);
           if (apiResponse?.data?.status === "Success") {
-            navigate("/verifyCode");
+            navigate("/updatePassword");
           }
         })
         .catch((apiResponse) => {
