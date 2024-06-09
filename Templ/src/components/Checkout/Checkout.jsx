@@ -1,8 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Style from "./Checkout.module.css";
 import { useFormik } from "formik";
+import axios from "axios";
+import { CartContext } from "../../Context/CartContext";
 
 export default function Checkout() {
+  let headers = {
+    token: localStorage.getItem("userTaken"),
+  };
+
+  let { displayCart } = useContext(CartContext);
+  const [cartDetails, setCartDetails] = useState(null);
+  async function getCart() {
+    let response = await displayCart();
+    console.log(response);
+    setCartDetails(response.data);
+  }
+  console.log(cartDetails?.data._id);
+  function createCashOrder(formValues) {
+    axios
+      .post(
+        `https://ecommerce.routemisr.com/api/v1/orders/${cartDetails?.data._id}`,
+        formValues,
+        {
+          headers
+        }
+      )
+      .then((apiResponse) => {
+        console.log(apiResponse);
+      })
+      .catch((apiResponse) => {
+        console.log(apiResponse);
+      });
+  }
   let formik = useFormik({
     initialValues: {
       shippingAddress: {
@@ -11,10 +41,11 @@ export default function Checkout() {
         city: "",
       },
     },
-    onSubmit:(formValues)=>{
-      console.log(formValues);
-    }
+    onSubmit: createCashOrder
   });
+  useEffect(()=>{
+      getCart()
+    } , []);
   return (
     <>
       <h2 className="text-2xl font-bold mt-4 text-green-600">
