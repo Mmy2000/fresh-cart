@@ -4,8 +4,10 @@ import { useFormik } from "formik";
 import axios from "axios";
 import { CartContext } from "../../Context/CartContext";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export default function Checkout() {
+  let navigate = useNavigate()
   let headers = {
     token: localStorage.getItem("userTaken"),
   };
@@ -29,6 +31,8 @@ export default function Checkout() {
       )
       .then((apiResponse) => {
         console.log(apiResponse);
+        toast.success("order created successfully");
+        navigate('/allorders')
       })
       .catch((apiResponse) => {
         console.log(apiResponse);
