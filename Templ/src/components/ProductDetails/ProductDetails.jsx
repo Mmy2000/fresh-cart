@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { RingLoader } from "react-spinners";
 import { CartContext } from "../../Context/CartContext";
 import { ToastContainer, toast } from "react-toastify";
+import { Helmet } from "react-helmet";
 
 
 
@@ -90,6 +91,9 @@ export default function ProductDetails() {
     } , [id,category]);
   return (
     <>
+      <Helmet>
+        <title>{productDetails?.title}</title>
+      </Helmet>
       {productDetails ? (
         <div className="row px-5 mx-5">
           <div className="w-full  md:w-1/4 ">
@@ -118,7 +122,16 @@ export default function ProductDetails() {
                 <i className="fas fa-star text-yellow-500"></i>
               </span>
             </div>
-            <button className="btn" onClick={()=> addProductToCart(productDetails.id)}>{isloading?<i className='fas fa-spinner fa-spin me-2'></i>:'add to cart'}</button>
+            <button
+              className="btn"
+              onClick={() => addProductToCart(productDetails.id)}
+            >
+              {isloading ? (
+                <i className="fas fa-spinner fa-spin me-2"></i>
+              ) : (
+                "add to cart"
+              )}
+            </button>
           </div>
         </div>
       ) : (
@@ -154,7 +167,16 @@ export default function ProductDetails() {
                       </span>
                     </div>
                   </Link>
-                  <button className="btn" onClick={()=> addProductToCart(product.id)}>{isloading?<i className='fas fa-spinner fa-spin me-2'></i>:'add to cart'}</button>
+                  <button
+                    className="btn"
+                    onClick={() => addProductToCart(product.id)}
+                  >
+                    {isloading ? (
+                      <i className="fas fa-spinner fa-spin me-2"></i>
+                    ) : (
+                      "add to cart"
+                    )}
+                  </button>
                 </div>
               </div>
             ))}
