@@ -47,9 +47,11 @@ export default function Checkout() {
       .then((apiResponse) => {
         console.log(apiResponse);
         toast.loading('redirct to payment gateway')
-        if (apiResponse?.data.status == 'success') {
-          window.location.href = apiResponse.data.session.url
-        }
+        setTimeout( ()=>{
+          if (apiResponse?.data.status == "success") {
+            window.location.href = apiResponse.data.session.url;
+          }
+        },3000)
       })
       .catch((apiResponse) => {
         console.log(apiResponse);
