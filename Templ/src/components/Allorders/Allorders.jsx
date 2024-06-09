@@ -32,8 +32,8 @@ export default function Allorders() {
           <div className="orders border mt-4 border-gray-400 rounded p-4">
             <div className="flex justify-between">
               <div>
-                <h2>Order ID</h2>
-                <h3 className="font-bold">{order.id}</h3>
+                <h2>Order ID : #{order.id}</h2>
+                <h3>Total Price : {order.totalOrderPrice} EGP</h3>
               </div>
               <div>
                 {order.isDelivered ? (
