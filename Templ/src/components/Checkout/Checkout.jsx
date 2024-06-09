@@ -11,19 +11,36 @@ export default function Checkout() {
 
   let { displayCart } = useContext(CartContext);
   const [cartDetails, setCartDetails] = useState(null);
+  const [orderType, setOrderType] = useState(null);
   async function getCart() {
     let response = await displayCart();
-    console.log(response);
     setCartDetails(response.data);
   }
-  console.log(cartDetails?.data._id);
   function createCashOrder(formValues) {
+    console.log("cash");
     axios
       .post(
         `https://ecommerce.routemisr.com/api/v1/orders/${cartDetails?.data._id}`,
         formValues,
         {
           headers
+        }
+      )
+      .then((apiResponse) => {
+        console.log(apiResponse);
+      })
+      .catch((apiResponse) => {
+        console.log(apiResponse);
+      });
+  }
+  function createOnlineOrder(formValues) {
+    console.log("online");
+    axios
+      .post(
+        `https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartDetails?.data._id}?url=http://localhost:5173`,
+        formValues,
+        {
+          headers,
         }
       )
       .then((apiResponse) => {
@@ -41,7 +58,13 @@ export default function Checkout() {
         city: "",
       },
     },
-    onSubmit: createCashOrder
+    onSubmit: (formValues)=>{
+      if (orderType === "cash") {
+        createCashOrder(formValues);
+      }else{
+        createOnlineOrder(formValues)
+      }
+    }
   });
   useEffect(()=>{
       getCart()
@@ -109,10 +132,22 @@ export default function Checkout() {
             Order Details
           </label>
         </div>
-        <button type="submit" className="btn mr-2">
+        <button
+          onClick={() => {
+            setOrderType("cash");
+          }}
+          type="submit"
+          className="btn mr-2"
+        >
           Cash Order
         </button>
-        <button type="submit" className="btn">
+        <button
+          onClick={() => {
+            setOrderType("online");
+          }}
+          type="submit"
+          className="btn"
+        >
           Online Order
         </button>
       </form>
