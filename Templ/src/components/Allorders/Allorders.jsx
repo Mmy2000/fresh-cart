@@ -3,6 +3,7 @@ import Style from './Allorders.module.css';
 import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
 import { RingLoader } from 'react-spinners';
+import { Helmet } from 'react-helmet';
 
 
 export default function Allorders() {
@@ -27,6 +28,9 @@ export default function Allorders() {
     } , []);
   return (
     <>
+    <Helmet>
+      <title>Orders</title>
+    </Helmet>
       {orders ? (
         orders.map((order) => (
           <div className="orders border mt-4 border-gray-400 rounded p-4">

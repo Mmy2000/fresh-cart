@@ -4,6 +4,7 @@ import { CartContext } from '../../Context/CartContext';
 import { ToastContainer, toast } from "react-toastify";
 import { RingLoader } from 'react-spinners';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 export default function Cart() {
     
@@ -44,6 +45,9 @@ export default function Cart() {
 
   return (
     <>
+      <Helmet>
+        <title>Cart</title>
+      </Helmet>
       {cartDetails ? (
         <div className="relative overflow-x-auto   sm:rounded-lg">
           <table className="w-75 my-5 mx-auto text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">

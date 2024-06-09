@@ -5,6 +5,7 @@ import axios from "axios";
 import { CartContext } from "../../Context/CartContext";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 export default function Checkout() {
   let navigate = useNavigate()
@@ -82,6 +83,9 @@ export default function Checkout() {
     } , []);
   return (
     <>
+      <Helmet>
+        <title>Checkout</title>
+      </Helmet>
       <h2 className="text-2xl font-bold mt-4 text-green-600">
         Shipping Address
       </h2>

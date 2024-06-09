@@ -7,6 +7,7 @@ import { RingLoader } from 'react-spinners';
 import { CartContext } from '../../Context/CartContext';
 import { ToastContainer, toast } from "react-toastify";
 import { wishlistContext } from "../../Context/wishlistContext";
+import { Helmet } from 'react-helmet';
 
 export default function Products() {
   //   const [recentProducts, setRecentProducts] = useState([]);
@@ -79,6 +80,9 @@ export default function Products() {
   }
   return (
     <>
+      <Helmet>
+        <title>Products</title>
+      </Helmet>
       <div className="row">
         {data?.data.data.map((product) => (
           <div key={product.id} className="w-1/2 sm:w-1/4 xl:w-1/6 py-4">
@@ -101,9 +105,23 @@ export default function Products() {
                   </span>
                 </div>
               </Link>
-              <div className='flex justify-between '>
-              <button className="btn" onClick={()=> addProductToCart(product.id)}>{isloading?<i className='fas fa-spinner fa-spin me-2'></i>:'add to cart'}</button>
-              <button className="btn2 w-1/4" onClick={()=> addProductToWishlist(product.id)}><i className="fa-solid fa-heart fa-xl"></i></button>
+              <div className="flex justify-between ">
+                <button
+                  className="btn"
+                  onClick={() => addProductToCart(product.id)}
+                >
+                  {isloading ? (
+                    <i className="fas fa-spinner fa-spin me-2"></i>
+                  ) : (
+                    "add to cart"
+                  )}
+                </button>
+                <button
+                  className="btn2 w-1/4"
+                  onClick={() => addProductToWishlist(product.id)}
+                >
+                  <i className="fa-solid fa-heart fa-xl"></i>
+                </button>
               </div>
             </div>
           </div>
