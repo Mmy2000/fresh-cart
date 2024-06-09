@@ -34,6 +34,7 @@ import Forgot from "./components/Forgot/Forgot";
 import VerifyCode from "./components/VerifyCode/VerifyCode";
 import UpdatePassword from "./components/UpdatePassword/UpdatePassword";
 import ChangePassword from "./components/ChangePassword/ChangePassword";
+import Checkout from "./components/Checkout/Checkout";
 
 
 
@@ -95,6 +96,14 @@ let router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <Brands />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "checkout",
+        element: (
+          <ProtectedRoute>
+            <Checkout />
           </ProtectedRoute>
         ),
       },

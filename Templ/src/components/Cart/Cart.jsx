@@ -3,6 +3,7 @@ import Style from './Cart.module.css';
 import { CartContext } from '../../Context/CartContext';
 import { ToastContainer, toast } from "react-toastify";
 import { RingLoader } from 'react-spinners';
+import { Link } from 'react-router-dom';
 
 export default function Cart() {
     
@@ -105,7 +106,7 @@ export default function Cart() {
 </div>:<div className="flex items-center w-full justify-center">
         <RingLoader color="green" />
       </div>}
-
+    <Link to='/checkout'><button className='btn mt-4'>Next Step</button></Link>
 
   </>
 }
