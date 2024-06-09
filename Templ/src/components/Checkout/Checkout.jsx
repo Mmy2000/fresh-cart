@@ -3,6 +3,7 @@ import Style from "./Checkout.module.css";
 import { useFormik } from "formik";
 import axios from "axios";
 import { CartContext } from "../../Context/CartContext";
+import { toast } from "react-toastify";
 
 export default function Checkout() {
   let headers = {
@@ -45,6 +46,7 @@ export default function Checkout() {
       )
       .then((apiResponse) => {
         console.log(apiResponse);
+        toast.loading('redirct to payment gateway')
         if (apiResponse?.data.status == 'success') {
           window.location.href = apiResponse.data.session.url
         }
