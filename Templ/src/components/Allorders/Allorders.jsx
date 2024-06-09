@@ -13,7 +13,7 @@ export default function Allorders() {
         <div className="flex justify-between">
           <div>
             <h2>Order ID</h2>
-            <h3>#1235</h3>
+            <h3 className='font-bold'>#1235</h3>
           </div>
           <div>
             <span className="btn me-2">Under delivery</span>
