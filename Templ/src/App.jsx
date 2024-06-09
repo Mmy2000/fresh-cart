@@ -36,6 +36,7 @@ import UpdatePassword from "./components/UpdatePassword/UpdatePassword";
 import ChangePassword from "./components/ChangePassword/ChangePassword";
 import Checkout from "./components/Checkout/Checkout";
 import Allorders from "./components/Allorders/Allorders";
+import { Offline } from "react-detect-offline";
 
 
 
@@ -175,18 +176,25 @@ const queryClient = new QueryClient();
 function App() {
 
   return (
-    <WishlistContextProvider>
-      <CartContextPRovider>
-        <QueryClientProvider client={queryClient}>
-          <UserContextProvider>
-            <RouterProvider router={router}></RouterProvider>
-            <ToastContainer />
+    <>
+      <WishlistContextProvider>
+        <CartContextPRovider>
+          <QueryClientProvider client={queryClient}>
+            <UserContextProvider>
+              <RouterProvider router={router}></RouterProvider>
+              <ToastContainer />
 
-            <ReactQueryDevtools></ReactQueryDevtools>
-          </UserContextProvider>
-        </QueryClientProvider>
-      </CartContextPRovider>
-    </WishlistContextProvider>
+              <ReactQueryDevtools></ReactQueryDevtools>
+            </UserContextProvider>
+          </QueryClientProvider>
+        </CartContextPRovider>
+      </WishlistContextProvider>
+      <Offline>
+        <div className="min-h-screen flex items-center justify-center fixed top-0 right-0 left-0 bottom-0 z-[88888888] bg-black bg-opacity-25">
+          <h2 className="text-2xl font-extrabold">You're offline right now. Check your connection.</h2>
+        </div>
+      </Offline>
+    </>
   );
 }
 
