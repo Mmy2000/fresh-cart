@@ -35,6 +35,7 @@ import VerifyCode from "./components/VerifyCode/VerifyCode";
 import UpdatePassword from "./components/UpdatePassword/UpdatePassword";
 import ChangePassword from "./components/ChangePassword/ChangePassword";
 import Checkout from "./components/Checkout/Checkout";
+import Allorders from "./components/Allorders/Allorders";
 
 
 
@@ -104,6 +105,14 @@ let router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <Checkout />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "allorders",
+        element: (
+          <ProtectedRoute>
+            <Allorders />
           </ProtectedRoute>
         ),
       },

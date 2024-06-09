@@ -60,6 +60,7 @@ export default function Navbar() {
           
           <li className='text-md mx-2 py-1 text-slate-900 font-normal '><NavLink to={'/categories'}> Categories </NavLink></li>
           <li className='text-md mx-2 py-1 text-slate-900 font-normal '><NavLink to={'/brands'}> Brands </NavLink></li>
+          <li className='text-md mx-2 py-1 text-slate-900 font-normal '><NavLink to={'/allorders'}> Orders </NavLink></li>
           <li className='text-md mx-2 py-1 text-slate-900 font-normal '><NavLink to={'/about'}> About </NavLink></li>
           
             </>:null}
