@@ -45,6 +45,9 @@ export default function Checkout() {
       )
       .then((apiResponse) => {
         console.log(apiResponse);
+        if (apiResponse?.data.status == 'success') {
+          window.location.href = apiResponse.data.session.url
+        }
       })
       .catch((apiResponse) => {
         console.log(apiResponse);
