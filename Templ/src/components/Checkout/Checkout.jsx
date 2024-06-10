@@ -13,7 +13,7 @@ export default function Checkout() {
     token: localStorage.getItem("userTaken"),
   };
 
-  let { displayCart } = useContext(CartContext);
+  let { displayCart ,setcartInfo } = useContext(CartContext);
   const [cartDetails, setCartDetails] = useState(null);
   const [orderType, setOrderType] = useState(null);
   async function getCart() {
@@ -33,6 +33,7 @@ export default function Checkout() {
       .then((apiResponse) => {
         console.log(apiResponse);
         toast.success("order created successfully");
+        setcartInfo(null)
         navigate('/allorders')
       })
       .catch((apiResponse) => {

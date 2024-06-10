@@ -66,6 +66,7 @@ export default function CartContextProvider(props) {
           addToCart,
           displayCart,
           cartInfo,
+          setcartInfo,
           deleteCartItem,
           updateCartItem,
         }}
