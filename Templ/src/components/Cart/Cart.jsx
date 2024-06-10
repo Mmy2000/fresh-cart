@@ -177,8 +177,9 @@ export default function Cart() {
             </Link>
           </div>
         ) : (
-          <div className="flex items-center w-full justify-center">
-            <p>No cart items</p>
+          <div className="flex items-center w-full flex-col  py-16 justify-center">
+            <h3 className='text-lg'>No cart items</h3>
+            <Link to='/products' className='btn'>Go For Shopping</Link>
           </div>
         )
       ) : (
