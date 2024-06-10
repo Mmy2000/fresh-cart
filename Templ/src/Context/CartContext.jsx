@@ -18,7 +18,13 @@ export default function CartContextProvider(props) {
           setcartInfo(response.data)
           return response
         })
-        .catch( (error)=> error)
+        .catch( (error)=> {
+          if (error.response.data.message.includes("No cart")) {
+            setcartInfo([])
+          }
+          return error
+        })
+        
     }
 
     function deleteCartItem(productID) {

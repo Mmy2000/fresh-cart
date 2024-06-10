@@ -10,11 +10,12 @@ export default function Cart() {
     
     const [cartDetails, setCartDetails] = useState(null);
     const [isloading, setisloading] = useState(false);
-    let { displayCart,cartInfo, deleteCartItem , updateCartItem } = useContext(CartContext);
+    let { displayCart,cartInfo,setcartInfo, deleteCartItem , updateCartItem } = useContext(CartContext);
 
     async function getCart(){
       let response = await displayCart()
       setCartDetails(response.data);
+      console.log(cartInfo);
     }
 
     async function updateCartQuantity(productId , count){
@@ -26,6 +27,7 @@ export default function Cart() {
       
       let response = await updateCartItem(productId, count);
       setCartDetails(response.data);
+      setcartInfo(response.data)
       toast.success("Cart Item updated successfully");
       setisloading(false)
     }
@@ -34,6 +36,7 @@ export default function Cart() {
       setisloading(true)
       let response = await deleteCartItem(productId)
       setCartDetails(response.data);
+      setcartInfo(response.data);
       toast.success("Cart Item deleted successfully");
       setisloading(false)
     }
@@ -48,7 +51,7 @@ export default function Cart() {
         <title>Cart</title>
       </Helmet>
       {cartDetails ? (
-        cartDetails.data.products.length > 0 ? (
+         cartInfo!= null ? (
           <div className="relative overflow-x-auto sm:rounded-lg">
             <table className="w-75 my-5 mx-auto text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
               <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -178,8 +181,10 @@ export default function Cart() {
           </div>
         ) : (
           <div className="flex items-center w-full flex-col  py-16 justify-center">
-            <h3 className='text-lg'>No cart items</h3>
-            <Link to='/products' className='btn'>Go For Shopping</Link>
+            <h3 className="text-lg">No cart items</h3>
+            <Link to="/products" className="btn">
+              Go For Shopping
+            </Link>
           </div>
         )
       ) : (
