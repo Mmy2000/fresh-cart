@@ -10,13 +10,13 @@ export default function Cart() {
     
     const [cartDetails, setCartDetails] = useState(null);
     const [isloading, setisloading] = useState(false);
-    let { displayCart, deleteCartItem , updateCartItem } = useContext(CartContext);
+    let { displayCart,cartInfo, deleteCartItem , updateCartItem } = useContext(CartContext);
 
     async function getCart(){
       let response = await displayCart()
-      console.log(response);
       setCartDetails(response.data);
     }
+    console.log(cartInfo);
 
     async function updateCartQuantity(productId , count){
       setisloading(true)

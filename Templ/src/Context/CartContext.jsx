@@ -1,9 +1,10 @@
 import axios from "axios";
-import { createContext } from "react";
+import { createContext, useState } from "react";
 
 export let CartContext = createContext()
 
 export default function CartContextProvider(props) {
+  const [cartInfo, setcartInfo] = useState(null);
 
     let headers = {
       token: localStorage.getItem("userTaken"),
@@ -13,16 +14,23 @@ export default function CartContextProvider(props) {
         return axios.get(`https://ecommerce.routemisr.com/api/v1/cart` , {
             headers:headers
         })
-        .then( (response)=> response)
+        .then( (response)=> {
+          setcartInfo(response.data)
+          return response
+        })
         .catch( (error)=> error)
     }
 
     function deleteCartItem(productID) {
-        return axios.delete(`https://ecommerce.routemisr.com/api/v1/cart/${productID}` , {
-            headers:headers
-        })
-        .then( (response)=> response)
-        .catch( (error)=> error)
+        return axios
+          .delete(`https://ecommerce.routemisr.com/api/v1/cart/${productID}`, {
+            headers: headers,
+          })
+          .then((response) => {
+            setcartInfo(response.data);
+            return response;
+          })
+          .catch((error) => error);
     }
 
     function updateCartItem(productID , count) {
@@ -46,10 +54,23 @@ export default function CartContextProvider(props) {
               headers: headers,
             }
           )
-          .then((response)=> response)
-          .catch((err)=> err);
+          .then((response) => {
+            setcartInfo(response.data);
+            return response;
+          })
+          .catch((err) => err);
     }
-    return <CartContext.Provider value={{addToCart , displayCart , deleteCartItem , updateCartItem}}>
+    return (
+      <CartContext.Provider
+        value={{
+          addToCart,
+          displayCart,
+          cartInfo,
+          deleteCartItem,
+          updateCartItem,
+        }}
+      >
         {props.children}
-    </CartContext.Provider>
+      </CartContext.Provider>
+    );
 }

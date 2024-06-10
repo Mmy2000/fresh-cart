@@ -14,7 +14,7 @@ export default function Navbar() {
     const [cartCount, setcartCount] = useState(0);
     const [wishlistCount, setwishlistCount] = useState(0);
     let { displayWishlist } = useContext(wishlistContext);
-    let { displayCart, deleteCartItem , updateCartItem } = useContext(CartContext);
+    let { displayCart,cartInfo, deleteCartItem , updateCartItem } = useContext(CartContext);
     let navigate = useNavigate()
     let {userLogin , setUserLogin} = useContext(UserContext)
 
@@ -74,7 +74,7 @@ export default function Navbar() {
             <li className='text-md mx-2 py-1 text-slate-900 font-normal '><NavLink to={'/login'}> Login </NavLink></li>
           <li className='text-md mx-2 py-1 text-slate-900 font-normal '><NavLink to={'/register'}> Register </NavLink></li>
           </>:
-          <><li className='text-md mx-2  bg-gray-200 px-3 rounded py-2 text-slate-900 font-normal '><NavLink to={'/cart'}><i className="fa-solid fa-cart-shopping fa-fw fa-xl"></i> <span>{cartDetails?.numOfCartItems}</span> </NavLink></li>
+          <><li className='text-md mx-2  bg-gray-200 px-3 rounded py-2 text-slate-900 font-normal '><NavLink to={'/cart'}><i className="fa-solid fa-cart-shopping fa-fw fa-xl"></i> <span>{cartInfo?.numOfCartItems}</span> </NavLink></li>
           <li className='text-md mx-2  bg-gray-200 px-3 rounded py-2 text-slate-900 font-normal '><NavLink to={'/wishlist'}><i className="fa-solid fa-heart fa-fw fa-xl"></i> <span>{wishlistCount}</span> </NavLink></li>
           <li onClick={LogOut} className='text-md mx-2 py-1 text-slate-900 font-normal cursor-pointer '><span > Logout </span></li></>}
           
