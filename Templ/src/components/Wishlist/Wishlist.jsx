@@ -58,7 +58,7 @@ export default function Wishlist() {
   return <>
   <>
         {wishList ? <div className="row">
-          {wishList?.map((product) => (
+          {wishList.map((product) => (
             <div key={product.id} className="w-1/2 sm:w-1/4 xl:w-1/6 py-4">
               <div className="product py-4 px-4">
                 <Link
