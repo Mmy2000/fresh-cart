@@ -58,9 +58,11 @@ export default function ProductDetails() {
     // console.log(isPending);
     let { addToCart } = useContext(CartContext);
     const [isloading, setisLoading] = useState(false);
+    const [currentId, setcurrentId] = useState("");
 
     async function addProductToCart(productId) {
       setisLoading(true)
+      setcurrentId(productId)
       let response = await addToCart(productId);
       if (response.data.status === "success") {
         toast.success("Product added successfully to your cart");
@@ -126,7 +128,7 @@ export default function ProductDetails() {
               className="btn"
               onClick={() => addProductToCart(productDetails.id)}
             >
-              {isloading ? (
+              {currentId === productDetails.id && isloading ? (
                 <i className="fas fa-spinner fa-spin me-2"></i>
               ) : (
                 "add to cart"
@@ -171,7 +173,7 @@ export default function ProductDetails() {
                     className="btn"
                     onClick={() => addProductToCart(product.id)}
                   >
-                    {isloading ? (
+                    {currentId === product.id && isloading ? (
                       <i className="fas fa-spinner fa-spin me-2"></i>
                     ) : (
                       "add to cart"

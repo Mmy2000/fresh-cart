@@ -17,16 +17,15 @@ export default function RecentProducts() {
 
   async function addProductToCart(productId) {
     setisLoading(true)
+    setcurrentId(productId);
     
     let response = await addToCart(productId);
     if (response.data.status === "success") {
       toast.success("Product added successfully to your cart");
       setisLoading(false)
-      setcurrentId(currentId);
     } else {
       toast.error("Product Not added ");
       setisLoading(false);
-      setcurrentId(currentId);
     }
     // console.log(response);
   }
@@ -35,11 +34,10 @@ export default function RecentProducts() {
     if (response.data.status === "success") {
       toast.success("Product added successfully to your wishlist");
       setisLoading(false);
-      setcurrentId(currentId);
+      
     } else {
       toast.error("Product Not added ");
       setisLoading(false);
-      setcurrentId(currentId);
     }
   }
 

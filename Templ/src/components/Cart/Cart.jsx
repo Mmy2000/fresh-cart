@@ -10,6 +10,7 @@ export default function Cart() {
     
     const [cartDetails, setCartDetails] = useState(null);
     const [isloading, setisloading] = useState(false);
+    const [currentId, setcurrentId] = useState("");
     let { displayCart,cartInfo,setcartInfo, deleteCartItem , updateCartItem } = useContext(CartContext);
 
     async function getCart(){
@@ -20,6 +21,7 @@ export default function Cart() {
 
     async function updateCartQuantity(productId , count){
       setisloading(true)
+      setcurrentId(productId)
       if (count < 1) {
         setisloading(false)
         return
@@ -34,6 +36,7 @@ export default function Cart() {
     
     async function deleteItem(productId) {
       setisloading(true)
+      setcurrentId(productId);
       let response = await deleteCartItem(productId)
       setCartDetails(response.data);
       setcartInfo(response.data);
@@ -51,7 +54,7 @@ export default function Cart() {
         <title>Cart</title>
       </Helmet>
       {cartDetails ? (
-         cartInfo!= null ? (
+        cartInfo != null ? (
           <div className="relative overflow-x-auto sm:rounded-lg">
             <table className="w-75 my-5 mx-auto text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
               <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -102,9 +105,7 @@ export default function Cart() {
                           type="button"
                         >
                           <span className="sr-only">Quantity button</span>
-                          {isloading ? (
-                            <i className="fas fa-spinner fa-spin me-2"></i>
-                          ) : (
+                             
                             <svg
                               className="w-3 h-3"
                               aria-hidden="true"
@@ -120,7 +121,7 @@ export default function Cart() {
                                 d="M1 1h16"
                               />
                             </svg>
-                          )}
+                          
                         </button>
                         <div>{product.count}</div>
                         <button
@@ -134,9 +135,7 @@ export default function Cart() {
                           type="button"
                         >
                           <span className="sr-only">Quantity button</span>
-                          {isloading ? (
-                            <i className="fas fa-spinner fa-spin me-2"></i>
-                          ) : (
+                          
                             <svg
                               className="w-3 h-3"
                               aria-hidden="true"
@@ -152,7 +151,7 @@ export default function Cart() {
                                 d="M9 1v16M1 9h16"
                               />
                             </svg>
-                          )}
+                          
                         </button>
                       </div>
                     </td>
@@ -164,7 +163,7 @@ export default function Cart() {
                         onClick={() => deleteItem(product.product.id)}
                         className="font-medium text-white cursor-pointer py-2 px-2 rounded bg-red-600"
                       >
-                        {isloading ? (
+                        {currentId === product.product.id && isloading ? (
                           <i className="fas fa-spinner fa-spin me-2"></i>
                         ) : (
                           "Remove"
