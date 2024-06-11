@@ -20,10 +20,8 @@ export default function Cart() {
     }
 
     async function updateCartQuantity(productId , count){
-      setisloading(true)
       setcurrentId(productId)
       if (count < 1) {
-        setisloading(false)
         return
       }
       
@@ -31,7 +29,6 @@ export default function Cart() {
       setCartDetails(response.data);
       setcartInfo(response.data)
       toast.success("Cart Item updated successfully");
-      setisloading(false)
     }
     
     async function deleteItem(productId) {
@@ -54,7 +51,7 @@ export default function Cart() {
         <title>Cart</title>
       </Helmet>
       {cartDetails ? (
-        cartInfo != null ? (
+        cartDetails.data.products.length > 0 ? (
           <div className="relative overflow-x-auto sm:rounded-lg">
             <table className="w-75 my-5 mx-auto text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
               <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -105,23 +102,22 @@ export default function Cart() {
                           type="button"
                         >
                           <span className="sr-only">Quantity button</span>
-                             
-                            <svg
-                              className="w-3 h-3"
-                              aria-hidden="true"
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 18 2"
-                            >
-                              <path
-                                stroke="currentColor"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M1 1h16"
-                              />
-                            </svg>
-                          
+
+                          <svg
+                            className="w-3 h-3"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 18 2"
+                          >
+                            <path
+                              stroke="currentColor"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M1 1h16"
+                            />
+                          </svg>
                         </button>
                         <div>{product.count}</div>
                         <button
@@ -135,23 +131,22 @@ export default function Cart() {
                           type="button"
                         >
                           <span className="sr-only">Quantity button</span>
-                          
-                            <svg
-                              className="w-3 h-3"
-                              aria-hidden="true"
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 18 18"
-                            >
-                              <path
-                                stroke="currentColor"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M9 1v16M1 9h16"
-                              />
-                            </svg>
-                          
+
+                          <svg
+                            className="w-3 h-3"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 18 18"
+                          >
+                            <path
+                              stroke="currentColor"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M9 1v16M1 9h16"
+                            />
+                          </svg>
                         </button>
                       </div>
                     </td>
