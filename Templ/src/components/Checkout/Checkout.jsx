@@ -16,12 +16,13 @@ export default function Checkout() {
   let { displayCart ,setcartInfo } = useContext(CartContext);
   const [cartDetails, setCartDetails] = useState(null);
   const [orderType, setOrderType] = useState(null);
+  const [isloading, setisLoading] = useState(false);
   async function getCart() {
     let response = await displayCart();
     setCartDetails(response.data);
   }
   function createCashOrder(formValues) {
-    console.log("cash");
+    setisLoading(true)
     axios
       .post(
         `https://ecommerce.routemisr.com/api/v1/orders/${cartDetails?.data._id}`,
@@ -33,11 +34,13 @@ export default function Checkout() {
       .then((apiResponse) => {
         console.log(apiResponse);
         toast.success("order created successfully");
+        setisLoading(false)
         setcartInfo(null)
         navigate('/allorders')
       })
       .catch((apiResponse) => {
         console.log(apiResponse);
+        setisLoading(false);
       });
   }
   function createOnlineOrder(formValues) {
@@ -155,7 +158,11 @@ export default function Checkout() {
           type="submit"
           className="btn mr-2"
         >
-          Cash Order
+          {isloading ? (
+            <i className="fas fa-spinner fa-spin me-2"></i>
+          ) : (
+            "Cash Order"
+          )}
         </button>
         <button
           onClick={() => {
